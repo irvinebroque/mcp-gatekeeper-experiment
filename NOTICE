@@ -15,5 +15,8 @@ The generated browser configurator includes Cap'n Web under the MIT license in
 licenses/capnweb.txt. Generated schema validators use Ajv and ajv-formats under
 the MIT licenses in licenses/ajv.txt and licenses/ajv-formats.txt.
 
-schemas/canva.json contains Canva MCP tool schemas needed for interoperability.
+schemas/canva-rest.json contains a reviewed subset of the Canva REST OpenAPI
+description, retrieved 2026-10-16 for interoperability:
+https://www.canva.dev/sources/connect/api/latest/api.yml
+The catalog records the source document SHA-256 and retains referenced schemas.
 Canva is a trademark of its respective owner. This is not an official Canva product.

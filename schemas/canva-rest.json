@@ -1,0 +1,4848 @@
+{
+  "source": "https://www.canva.dev/sources/connect/api/latest/api.yml",
+  "sourceSha256": "4f72b178a28ae960e9d551afa435170bb5b53ab84fac6400b94f5ca0442a2ef6",
+  "retrievedAt": "2026-10-16",
+  "baseUrl": "https://api.canva.com/rest",
+  "operations": [
+    {
+      "name": "getAsset",
+      "method": "GET",
+      "path": "/v1/assets/{assetId}",
+      "classification": "observation",
+      "scopes": [
+        "asset:read"
+      ],
+      "pathParameters": [
+        "assetId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "assetId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "assetId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetAssetResponse"
+      }
+    },
+    {
+      "name": "createUrlAssetUploadJob",
+      "method": "POST",
+      "path": "/v1/url-asset-uploads",
+      "classification": "action",
+      "scopes": [
+        "asset:write"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/CreateUrlAssetUploadJobRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateUrlAssetUploadJobResponse"
+      },
+      "poll": "getUrlAssetUploadJob",
+      "preview": true
+    },
+    {
+      "name": "getUrlAssetUploadJob",
+      "method": "GET",
+      "path": "/v1/url-asset-uploads/{jobId}",
+      "classification": "observation",
+      "scopes": [
+        "asset:read"
+      ],
+      "pathParameters": [
+        "jobId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "jobId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "jobId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetUrlAssetUploadJobResponse"
+      },
+      "preview": true
+    },
+    {
+      "name": "listBrandTemplates",
+      "method": "GET",
+      "path": "/v1/brand-templates",
+      "classification": "observation",
+      "scopes": [
+        "brandtemplate:meta:read"
+      ],
+      "pathParameters": [],
+      "queryParameters": [
+        {
+          "name": "query",
+          "explode": true
+        },
+        {
+          "name": "continuation",
+          "explode": true
+        },
+        {
+          "name": "limit",
+          "explode": true
+        },
+        {
+          "name": "ownership",
+          "explode": true
+        },
+        {
+          "name": "sort_by",
+          "explode": true
+        },
+        {
+          "name": "dataset",
+          "explode": true
+        }
+      ],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "object",
+            "properties": {
+              "query": {
+                "type": "string"
+              },
+              "continuation": {
+                "type": "string"
+              },
+              "limit": {
+                "default": 25,
+                "format": "int32",
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "ownership": {
+                "$ref": "#/definitions/OwnershipType"
+              },
+              "sort_by": {
+                "$ref": "#/definitions/SortByType"
+              },
+              "dataset": {
+                "$ref": "#/definitions/DatasetFilter"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/ListBrandTemplatesResponse"
+      }
+    },
+    {
+      "name": "publishBrandTemplate",
+      "method": "POST",
+      "path": "/v1/brand-templates",
+      "classification": "action",
+      "scopes": [
+        "brandtemplate:content:write"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/PublishBrandTemplateRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/PublishBrandTemplateResponse"
+      },
+      "preview": true
+    },
+    {
+      "name": "getBrandTemplate",
+      "method": "GET",
+      "path": "/v1/brand-templates/{brandTemplateId}",
+      "classification": "observation",
+      "scopes": [
+        "brandtemplate:meta:read"
+      ],
+      "pathParameters": [
+        "brandTemplateId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "brandTemplateId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "brandTemplateId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetBrandTemplateResponse"
+      }
+    },
+    {
+      "name": "getBrandTemplateDataset",
+      "method": "GET",
+      "path": "/v1/brand-templates/{brandTemplateId}/dataset",
+      "classification": "observation",
+      "scopes": [
+        "brandtemplate:content:read"
+      ],
+      "pathParameters": [
+        "brandTemplateId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "brandTemplateId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "brandTemplateId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetBrandTemplateDatasetResponse"
+      }
+    },
+    {
+      "name": "listReplies",
+      "method": "GET",
+      "path": "/v1/designs/{designId}/comments/{threadId}/replies",
+      "classification": "observation",
+      "scopes": [
+        "comment:read"
+      ],
+      "pathParameters": [
+        "designId",
+        "threadId"
+      ],
+      "queryParameters": [
+        {
+          "name": "limit",
+          "explode": true
+        },
+        {
+          "name": "continuation",
+          "explode": true
+        }
+      ],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "designId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              },
+              "threadId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "designId",
+              "threadId"
+            ]
+          },
+          "query": {
+            "type": "object",
+            "properties": {
+              "limit": {
+                "default": 50,
+                "format": "int32",
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "continuation": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/ListRepliesResponse"
+      },
+      "preview": true
+    },
+    {
+      "name": "createReply",
+      "method": "POST",
+      "path": "/v1/designs/{designId}/comments/{threadId}/replies",
+      "classification": "action",
+      "scopes": [
+        "comment:write"
+      ],
+      "pathParameters": [
+        "designId",
+        "threadId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "designId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              },
+              "threadId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "designId",
+              "threadId"
+            ]
+          },
+          "body": {
+            "$ref": "#/definitions/CreateReplyV2Request"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateReplyV2Response"
+      },
+      "preview": true
+    },
+    {
+      "name": "getThread",
+      "method": "GET",
+      "path": "/v1/designs/{designId}/comments/{threadId}",
+      "classification": "observation",
+      "scopes": [
+        "comment:read"
+      ],
+      "pathParameters": [
+        "designId",
+        "threadId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "designId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              },
+              "threadId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "designId",
+              "threadId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetThreadResponse"
+      },
+      "preview": true
+    },
+    {
+      "name": "createThread",
+      "method": "POST",
+      "path": "/v1/designs/{designId}/comments",
+      "classification": "action",
+      "scopes": [
+        "comment:write"
+      ],
+      "pathParameters": [
+        "designId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "designId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "designId"
+            ]
+          },
+          "body": {
+            "$ref": "#/definitions/CreateThreadRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateThreadResponse"
+      },
+      "preview": true
+    },
+    {
+      "name": "listDesigns",
+      "method": "GET",
+      "path": "/v1/designs",
+      "classification": "observation",
+      "scopes": [
+        "design:meta:read"
+      ],
+      "pathParameters": [],
+      "queryParameters": [
+        {
+          "name": "query",
+          "explode": true
+        },
+        {
+          "name": "continuation",
+          "explode": true
+        },
+        {
+          "name": "ownership",
+          "explode": true
+        },
+        {
+          "name": "sort_by",
+          "explode": true
+        },
+        {
+          "name": "limit",
+          "explode": true
+        }
+      ],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "object",
+            "properties": {
+              "query": {
+                "maxLength": 255,
+                "type": "string"
+              },
+              "continuation": {
+                "type": "string"
+              },
+              "ownership": {
+                "$ref": "#/definitions/OwnershipType"
+              },
+              "sort_by": {
+                "$ref": "#/definitions/SortByType"
+              },
+              "limit": {
+                "default": 25,
+                "format": "int32",
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetListDesignResponse"
+      }
+    },
+    {
+      "name": "createDesign",
+      "method": "POST",
+      "path": "/v1/designs",
+      "classification": "action",
+      "scopes": [
+        "design:content:write"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/CreateDesignRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateDesignResponse"
+      }
+    },
+    {
+      "name": "getDesign",
+      "method": "GET",
+      "path": "/v1/designs/{designId}",
+      "classification": "observation",
+      "scopes": [
+        "design:meta:read"
+      ],
+      "pathParameters": [
+        "designId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "designId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "designId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetDesignResponse"
+      }
+    },
+    {
+      "name": "getDesignPages",
+      "method": "GET",
+      "path": "/v1/designs/{designId}/pages",
+      "classification": "observation",
+      "scopes": [
+        "design:content:read"
+      ],
+      "pathParameters": [
+        "designId"
+      ],
+      "queryParameters": [
+        {
+          "name": "offset",
+          "explode": true
+        },
+        {
+          "name": "limit",
+          "explode": true
+        }
+      ],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "designId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "designId"
+            ]
+          },
+          "query": {
+            "type": "object",
+            "properties": {
+              "offset": {
+                "default": 1,
+                "format": "int32",
+                "maximum": 500,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "limit": {
+                "default": 50,
+                "format": "int32",
+                "maximum": 200,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetDesignPagesResponse"
+      },
+      "preview": true
+    },
+    {
+      "name": "getDesignExportFormats",
+      "method": "GET",
+      "path": "/v1/designs/{designId}/export-formats",
+      "classification": "observation",
+      "scopes": [
+        "design:content:read"
+      ],
+      "pathParameters": [
+        "designId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "designId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "designId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetDesignExportFormatsResponse"
+      }
+    },
+    {
+      "name": "getDesignDataset",
+      "method": "GET",
+      "path": "/v1/designs/{designId}/dataset",
+      "classification": "observation",
+      "scopes": [
+        "design:content:read"
+      ],
+      "pathParameters": [
+        "designId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "designId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "designId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetDesignDatasetResponse"
+      }
+    },
+    {
+      "name": "createDesignGenerationJobV2",
+      "method": "POST",
+      "path": "/v1/generations",
+      "classification": "action",
+      "scopes": [
+        "design:content:write"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/CreateDesignGenerationJobRequestV2"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateDesignGenerationJobResponseV2"
+      },
+      "poll": "getDesignGenerationJobV2",
+      "preview": true
+    },
+    {
+      "name": "getDesignGenerationJobV2",
+      "method": "GET",
+      "path": "/v1/generations/{jobId}",
+      "classification": "observation",
+      "scopes": [
+        "design:content:write"
+      ],
+      "pathParameters": [
+        "jobId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "jobId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "jobId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetDesignGenerationJobResponseV2"
+      },
+      "preview": true
+    },
+    {
+      "name": "createUrlImportJob",
+      "method": "POST",
+      "path": "/v1/url-imports",
+      "classification": "action",
+      "scopes": [
+        "design:content:write"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/CreateUrlImportJobRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateUrlImportJobResponse"
+      },
+      "poll": "getUrlImportJob"
+    },
+    {
+      "name": "getUrlImportJob",
+      "method": "GET",
+      "path": "/v1/url-imports/{jobId}",
+      "classification": "observation",
+      "scopes": [
+        "design:content:write"
+      ],
+      "pathParameters": [
+        "jobId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "jobId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "jobId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetUrlImportJobResponse"
+      }
+    },
+    {
+      "name": "createDesignExportJob",
+      "method": "POST",
+      "path": "/v1/exports",
+      "classification": "action",
+      "scopes": [
+        "design:content:read"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/CreateDesignExportJobRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateDesignExportJobResponse"
+      },
+      "poll": "getDesignExportJob"
+    },
+    {
+      "name": "getDesignExportJob",
+      "method": "GET",
+      "path": "/v1/exports/{exportId}",
+      "classification": "observation",
+      "scopes": [
+        "design:content:read"
+      ],
+      "pathParameters": [
+        "exportId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "exportId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "exportId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetDesignExportJobResponse"
+      }
+    },
+    {
+      "name": "getFolder",
+      "method": "GET",
+      "path": "/v1/folders/{folderId}",
+      "classification": "observation",
+      "scopes": [
+        "folder:read"
+      ],
+      "pathParameters": [
+        "folderId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "folderId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "folderId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetFolderResponse"
+      }
+    },
+    {
+      "name": "listFolderItems",
+      "method": "GET",
+      "path": "/v1/folders/{folderId}/items",
+      "classification": "observation",
+      "scopes": [
+        "folder:read"
+      ],
+      "pathParameters": [
+        "folderId"
+      ],
+      "queryParameters": [
+        {
+          "name": "continuation",
+          "explode": true
+        },
+        {
+          "name": "limit",
+          "explode": true
+        },
+        {
+          "name": "item_types",
+          "explode": false
+        },
+        {
+          "name": "sort_by",
+          "explode": true
+        },
+        {
+          "name": "pin_status",
+          "explode": true
+        }
+      ],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "folderId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "folderId"
+            ]
+          },
+          "query": {
+            "type": "object",
+            "properties": {
+              "continuation": {
+                "type": "string"
+              },
+              "limit": {
+                "default": 50,
+                "format": "int32",
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "item_types": {
+                "default": [
+                  "design",
+                  "folder",
+                  "image"
+                ],
+                "items": {
+                  "$ref": "#/definitions/FolderItemType"
+                },
+                "type": "array"
+              },
+              "sort_by": {
+                "$ref": "#/definitions/FolderItemSortBy"
+              },
+              "pin_status": {
+                "$ref": "#/definitions/FolderItemPinStatus"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/ListFolderItemsResponse"
+      }
+    },
+    {
+      "name": "moveFolderItem",
+      "method": "POST",
+      "path": "/v1/folders/move",
+      "classification": "action",
+      "scopes": [
+        "folder:write"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/MoveFolderItemRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "type": "object",
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "createFolder",
+      "method": "POST",
+      "path": "/v1/folders",
+      "classification": "action",
+      "scopes": [
+        "folder:write"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/CreateFolderRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateFolderResponse"
+      }
+    },
+    {
+      "name": "createImageGenerationJob",
+      "method": "POST",
+      "path": "/v1/image-generations",
+      "classification": "action",
+      "scopes": [
+        "asset:write"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/CreateImageGenerationJobRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateImageGenerationJobResponse"
+      },
+      "poll": "getImageGenerationJob",
+      "preview": true
+    },
+    {
+      "name": "getImageGenerationJob",
+      "method": "GET",
+      "path": "/v1/image-generations/{jobId}",
+      "classification": "observation",
+      "scopes": [
+        "asset:write"
+      ],
+      "pathParameters": [
+        "jobId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "jobId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "jobId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetImageGenerationJobResponse"
+      },
+      "preview": true
+    },
+    {
+      "name": "createImageTransformationJob",
+      "method": "POST",
+      "path": "/v1/image-transformations",
+      "classification": "action",
+      "scopes": [
+        "asset:read",
+        "asset:write"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/CreateImageTransformationJobRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateImageTransformationJobResponse"
+      },
+      "poll": "getImageTransformationJob",
+      "preview": true
+    },
+    {
+      "name": "getImageTransformationJob",
+      "method": "GET",
+      "path": "/v1/image-transformations/{jobId}",
+      "classification": "observation",
+      "scopes": [
+        "asset:read"
+      ],
+      "pathParameters": [
+        "jobId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "jobId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "jobId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetImageTransformationJobResponse"
+      },
+      "preview": true
+    },
+    {
+      "name": "createDesignMergeJob",
+      "method": "POST",
+      "path": "/v1/merges",
+      "classification": "action",
+      "scopes": [
+        "design:content:write",
+        "design:meta:read"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/CreateDesignMergeJobRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateDesignMergeJobResponse"
+      },
+      "poll": "getDesignMergeJob",
+      "preview": true
+    },
+    {
+      "name": "getDesignMergeJob",
+      "method": "GET",
+      "path": "/v1/merges/{jobId}",
+      "classification": "observation",
+      "scopes": [
+        "design:meta:read"
+      ],
+      "pathParameters": [
+        "jobId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "jobId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "jobId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetDesignMergeJobResponse"
+      },
+      "preview": true
+    },
+    {
+      "name": "createDesignResizeJob",
+      "method": "POST",
+      "path": "/v1/resizes",
+      "classification": "action",
+      "scopes": [
+        "design:content:read",
+        "design:content:write"
+      ],
+      "pathParameters": [],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/CreateDesignResizeJobRequest"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/CreateDesignResizeJobResponse"
+      },
+      "poll": "getDesignResizeJob"
+    },
+    {
+      "name": "getDesignResizeJob",
+      "method": "GET",
+      "path": "/v1/resizes/{jobId}",
+      "classification": "observation",
+      "scopes": [
+        "design:content:read",
+        "design:content:write"
+      ],
+      "pathParameters": [
+        "jobId"
+      ],
+      "queryParameters": [],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "object",
+            "properties": {
+              "jobId": {
+                "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "jobId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/GetDesignResizeJobResponse"
+      }
+    }
+  ],
+  "definitions": {
+    "GetAssetResponse": {
+      "properties": {
+        "asset": {
+          "$ref": "#/definitions/Asset"
+        }
+      },
+      "required": [
+        "asset"
+      ],
+      "type": "object"
+    },
+    "Asset": {
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/AssetType"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "import_status": {
+          "$ref": "#/definitions/ImportStatus"
+        },
+        "created_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "owner": {
+          "$ref": "#/definitions/TeamUserSummary"
+        },
+        "thumbnail": {
+          "$ref": "#/definitions/Thumbnail"
+        },
+        "metadata": {
+          "$ref": "#/definitions/AssetMetadata"
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "name",
+        "owner",
+        "tags",
+        "type",
+        "updated_at"
+      ],
+      "type": "object"
+    },
+    "AssetType": {
+      "enum": [
+        "image",
+        "video"
+      ],
+      "type": "string"
+    },
+    "ImportStatus": {
+      "deprecated": true,
+      "properties": {
+        "state": {
+          "$ref": "#/definitions/ImportStatusState"
+        },
+        "error": {
+          "$ref": "#/definitions/ImportError"
+        }
+      },
+      "required": [
+        "state"
+      ],
+      "type": "object"
+    },
+    "ImportStatusState": {
+      "deprecated": true,
+      "enum": [
+        "failed",
+        "in_progress",
+        "success"
+      ],
+      "type": "string"
+    },
+    "ImportError": {
+      "deprecated": true,
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ImportErrorCode"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "ImportErrorCode": {
+      "deprecated": true,
+      "enum": [
+        "file_too_big",
+        "import_failed"
+      ],
+      "type": "string"
+    },
+    "TeamUserSummary": {
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "team_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "team_id",
+        "user_id"
+      ],
+      "type": "object"
+    },
+    "Thumbnail": {
+      "properties": {
+        "width": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "height": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "height",
+        "url",
+        "width"
+      ],
+      "type": "object"
+    },
+    "AssetMetadata": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/ImageMetadata"
+        },
+        {
+          "$ref": "#/definitions/VideoMetadata"
+        }
+      ],
+      "type": "object"
+    },
+    "ImageMetadata": {
+      "properties": {
+        "type": {
+          "enum": [
+            "image"
+          ],
+          "type": "string"
+        },
+        "width": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "height": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "smart_tags": {
+          "items": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "VideoMetadata": {
+      "properties": {
+        "type": {
+          "enum": [
+            "video"
+          ],
+          "type": "string"
+        },
+        "width": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "height": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "duration": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "height",
+        "type",
+        "width"
+      ],
+      "type": "object"
+    },
+    "CreateUrlAssetUploadJobRequest": {
+      "properties": {
+        "name": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "url": {
+          "maxLength": 2048,
+          "minLength": 8,
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "url"
+      ],
+      "type": "object"
+    },
+    "CreateUrlAssetUploadJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/AssetUploadJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "AssetUploadJob": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/AssetUploadStatus"
+        },
+        "error": {
+          "$ref": "#/definitions/AssetUploadError"
+        },
+        "asset": {
+          "$ref": "#/definitions/Asset"
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ],
+      "type": "object"
+    },
+    "AssetUploadStatus": {
+      "enum": [
+        "failed",
+        "in_progress",
+        "success"
+      ],
+      "type": "string"
+    },
+    "AssetUploadError": {
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/AssetUploadErrorCode"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "AssetUploadErrorCode": {
+      "enum": [
+        "file_too_big",
+        "import_failed",
+        "fetch_failed"
+      ],
+      "type": "string"
+    },
+    "GetUrlAssetUploadJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/AssetUploadJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "OwnershipType": {
+      "default": "any",
+      "enum": [
+        "any",
+        "owned",
+        "shared"
+      ],
+      "type": "string"
+    },
+    "SortByType": {
+      "default": "relevance",
+      "enum": [
+        "relevance",
+        "modified_descending",
+        "modified_ascending",
+        "title_descending",
+        "title_ascending"
+      ],
+      "type": "string"
+    },
+    "DatasetFilter": {
+      "default": "any",
+      "enum": [
+        "any",
+        "non_empty"
+      ],
+      "type": "string"
+    },
+    "ListBrandTemplatesResponse": {
+      "properties": {
+        "continuation": {
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/definitions/BrandTemplate"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "type": "object"
+    },
+    "BrandTemplate": {
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "view_url": {
+          "type": "string"
+        },
+        "create_url": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "$ref": "#/definitions/Thumbnail"
+        },
+        "created_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "create_url",
+        "created_at",
+        "id",
+        "title",
+        "updated_at",
+        "view_url"
+      ],
+      "type": "object"
+    },
+    "PublishBrandTemplateRequest": {
+      "properties": {
+        "design_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "design_id"
+      ],
+      "type": "object"
+    },
+    "PublishBrandTemplateResponse": {
+      "properties": {
+        "brand_template": {
+          "$ref": "#/definitions/BrandTemplate"
+        }
+      },
+      "required": [
+        "brand_template"
+      ],
+      "type": "object"
+    },
+    "GetBrandTemplateResponse": {
+      "properties": {
+        "brand_template": {
+          "$ref": "#/definitions/BrandTemplate"
+        }
+      },
+      "required": [
+        "brand_template"
+      ],
+      "type": "object"
+    },
+    "GetBrandTemplateDatasetResponse": {
+      "properties": {
+        "dataset": {
+          "additionalProperties": {
+            "$ref": "#/definitions/DataField"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "DataField": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/ImageDataField"
+        },
+        {
+          "$ref": "#/definitions/TextDataField"
+        },
+        {
+          "$ref": "#/definitions/ChartDataField"
+        },
+        {
+          "$ref": "#/definitions/SheetDataField"
+        }
+      ],
+      "type": "object"
+    },
+    "ImageDataField": {
+      "properties": {
+        "type": {
+          "enum": [
+            "image"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "TextDataField": {
+      "properties": {
+        "type": {
+          "enum": [
+            "text"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "ChartDataField": {
+      "properties": {
+        "type": {
+          "enum": [
+            "chart"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "SheetDataField": {
+      "properties": {
+        "type": {
+          "enum": [
+            "sheet"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "ListRepliesResponse": {
+      "properties": {
+        "continuation": {
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/definitions/Reply"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "type": "object"
+    },
+    "Reply": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "design_id": {
+          "type": "string"
+        },
+        "thread_id": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "#/definitions/User"
+        },
+        "content": {
+          "$ref": "#/definitions/CommentContent"
+        },
+        "mentions": {
+          "additionalProperties": {
+            "$ref": "#/definitions/UserMention"
+          },
+          "type": "object"
+        },
+        "created_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "content",
+        "created_at",
+        "design_id",
+        "id",
+        "mentions",
+        "thread_id",
+        "updated_at"
+      ],
+      "type": "object"
+    },
+    "User": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "CommentContent": {
+      "properties": {
+        "plaintext": {
+          "type": "string"
+        },
+        "markdown": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "plaintext"
+      ],
+      "type": "object"
+    },
+    "UserMention": {
+      "properties": {
+        "tag": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/TeamUser"
+        }
+      },
+      "required": [
+        "tag",
+        "user"
+      ],
+      "type": "object"
+    },
+    "TeamUser": {
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "team_id": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "CreateReplyV2Request": {
+      "properties": {
+        "message_plaintext": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "message_plaintext"
+      ],
+      "type": "object"
+    },
+    "CreateReplyV2Response": {
+      "properties": {
+        "reply": {
+          "$ref": "#/definitions/Reply"
+        }
+      },
+      "required": [
+        "reply"
+      ],
+      "type": "object"
+    },
+    "GetThreadResponse": {
+      "properties": {
+        "comment": {
+          "$ref": "#/definitions/Comment"
+        },
+        "thread": {
+          "$ref": "#/definitions/Thread"
+        }
+      },
+      "type": "object"
+    },
+    "Comment": {
+      "deprecated": true,
+      "oneOf": [
+        {
+          "$ref": "#/definitions/ParentComment"
+        },
+        {
+          "$ref": "#/definitions/ReplyComment"
+        }
+      ],
+      "type": "object"
+    },
+    "ParentComment": {
+      "deprecated": true,
+      "properties": {
+        "type": {
+          "enum": [
+            "parent"
+          ],
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "attached_to": {
+          "$ref": "#/definitions/CommentObject"
+        },
+        "message": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "#/definitions/User"
+        },
+        "created_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "mentions": {
+          "additionalProperties": {
+            "$ref": "#/definitions/TeamUser"
+          },
+          "deprecated": true,
+          "type": "object"
+        },
+        "assignee": {
+          "$ref": "#/definitions/User"
+        },
+        "resolver": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "required": [
+        "author",
+        "id",
+        "mentions",
+        "message",
+        "type"
+      ],
+      "type": "object"
+    },
+    "CommentObject": {
+      "deprecated": true,
+      "oneOf": [
+        {
+          "$ref": "#/definitions/DesignCommentObject"
+        }
+      ],
+      "type": "object"
+    },
+    "DesignCommentObject": {
+      "deprecated": true,
+      "properties": {
+        "type": {
+          "enum": [
+            "design"
+          ],
+          "type": "string"
+        },
+        "design_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "design_id",
+        "type"
+      ],
+      "type": "object"
+    },
+    "ReplyComment": {
+      "deprecated": true,
+      "properties": {
+        "type": {
+          "enum": [
+            "reply"
+          ],
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "attached_to": {
+          "$ref": "#/definitions/CommentObject"
+        },
+        "message": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "#/definitions/User"
+        },
+        "created_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "mentions": {
+          "additionalProperties": {
+            "$ref": "#/definitions/TeamUser"
+          },
+          "deprecated": true,
+          "type": "object"
+        },
+        "thread_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "author",
+        "id",
+        "mentions",
+        "message",
+        "thread_id",
+        "type"
+      ],
+      "type": "object"
+    },
+    "Thread": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "design_id": {
+          "type": "string"
+        },
+        "thread_type": {
+          "$ref": "#/definitions/ThreadType"
+        },
+        "author": {
+          "$ref": "#/definitions/User"
+        },
+        "created_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "created_at",
+        "design_id",
+        "id",
+        "thread_type",
+        "updated_at"
+      ],
+      "type": "object"
+    },
+    "ThreadType": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/CommentThreadType"
+        },
+        {
+          "$ref": "#/definitions/SuggestionThreadType"
+        }
+      ],
+      "type": "object"
+    },
+    "CommentThreadType": {
+      "properties": {
+        "type": {
+          "enum": [
+            "comment"
+          ],
+          "type": "string"
+        },
+        "content": {
+          "$ref": "#/definitions/CommentContent"
+        },
+        "mentions": {
+          "additionalProperties": {
+            "$ref": "#/definitions/UserMention"
+          },
+          "type": "object"
+        },
+        "assignee": {
+          "$ref": "#/definitions/User"
+        },
+        "resolver": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "required": [
+        "content",
+        "mentions",
+        "type"
+      ],
+      "type": "object"
+    },
+    "SuggestionThreadType": {
+      "properties": {
+        "type": {
+          "enum": [
+            "suggestion"
+          ],
+          "type": "string"
+        },
+        "suggested_edits": {
+          "items": {
+            "$ref": "#/definitions/SuggestedEdit"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/definitions/SuggestionStatus"
+        }
+      },
+      "required": [
+        "status",
+        "suggested_edits",
+        "type"
+      ],
+      "type": "object"
+    },
+    "SuggestedEdit": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/AddSuggestedEdit"
+        },
+        {
+          "$ref": "#/definitions/DeleteSuggestedEdit"
+        },
+        {
+          "$ref": "#/definitions/FormatSuggestedEdit"
+        }
+      ],
+      "type": "object"
+    },
+    "AddSuggestedEdit": {
+      "properties": {
+        "type": {
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "type"
+      ],
+      "type": "object"
+    },
+    "DeleteSuggestedEdit": {
+      "properties": {
+        "type": {
+          "enum": [
+            "delete"
+          ],
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "type"
+      ],
+      "type": "object"
+    },
+    "FormatSuggestedEdit": {
+      "properties": {
+        "type": {
+          "enum": [
+            "format"
+          ],
+          "type": "string"
+        },
+        "format": {
+          "$ref": "#/definitions/SuggestionFormat"
+        }
+      },
+      "required": [
+        "format",
+        "type"
+      ],
+      "type": "object"
+    },
+    "SuggestionFormat": {
+      "enum": [
+        "font_family",
+        "font_size",
+        "font_weight",
+        "font_style",
+        "color",
+        "background_color",
+        "decoration",
+        "strikethrough",
+        "link",
+        "letter_spacing",
+        "line_height",
+        "direction",
+        "text_align",
+        "list_marker",
+        "list_level",
+        "margin_inline_start",
+        "text_indent",
+        "font_size_modifier",
+        "vertical_align"
+      ],
+      "type": "string"
+    },
+    "SuggestionStatus": {
+      "enum": [
+        "open",
+        "accepted",
+        "rejected"
+      ],
+      "type": "string"
+    },
+    "CreateThreadRequest": {
+      "properties": {
+        "message_plaintext": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        },
+        "assignee_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "message_plaintext"
+      ],
+      "type": "object"
+    },
+    "CreateThreadResponse": {
+      "properties": {
+        "thread": {
+          "$ref": "#/definitions/Thread"
+        }
+      },
+      "required": [
+        "thread"
+      ],
+      "type": "object"
+    },
+    "GetListDesignResponse": {
+      "properties": {
+        "continuation": {
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/definitions/Design"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "type": "object"
+    },
+    "Design": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "owner": {
+          "$ref": "#/definitions/TeamUserSummary"
+        },
+        "thumbnail": {
+          "$ref": "#/definitions/Thumbnail"
+        },
+        "urls": {
+          "$ref": "#/definitions/DesignLinks"
+        },
+        "created_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "page_count": {
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "design_types": {
+          "items": {
+            "$ref": "#/definitions/DesignTypeOutputName"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "created_at",
+        "design_types",
+        "id",
+        "owner",
+        "updated_at",
+        "urls"
+      ],
+      "type": "object"
+    },
+    "DesignLinks": {
+      "properties": {
+        "edit_url": {
+          "type": "string"
+        },
+        "view_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "edit_url",
+        "view_url"
+      ],
+      "type": "object"
+    },
+    "DesignTypeOutputName": {
+      "enum": [
+        "doc",
+        "email",
+        "presentation",
+        "sheet",
+        "whiteboard",
+        "custom",
+        "unknown"
+      ],
+      "type": "string"
+    },
+    "CreateDesignRequest": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/DesignTypeCreateDesignRequest"
+        },
+        {
+          "$ref": "#/definitions/DesignCreateDesignRequest"
+        },
+        {
+          "$ref": "#/definitions/BrandTemplateCreateDesignRequest"
+        }
+      ],
+      "type": "object"
+    },
+    "DesignTypeCreateDesignRequest": {
+      "properties": {
+        "type": {
+          "enum": [
+            "type_and_asset"
+          ],
+          "type": "string"
+        },
+        "design_type": {
+          "$ref": "#/definitions/DesignTypeInput"
+        },
+        "asset_id": {
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "DesignTypeInput": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/PresetDesignTypeInput"
+        },
+        {
+          "$ref": "#/definitions/CustomDesignTypeInput"
+        }
+      ],
+      "type": "object"
+    },
+    "PresetDesignTypeInput": {
+      "properties": {
+        "type": {
+          "enum": [
+            "preset"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "$ref": "#/definitions/PresetDesignTypeName"
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "PresetDesignTypeName": {
+      "enum": [
+        "doc",
+        "email",
+        "presentation",
+        "whiteboard"
+      ],
+      "type": "string"
+    },
+    "CustomDesignTypeInput": {
+      "properties": {
+        "type": {
+          "enum": [
+            "custom"
+          ],
+          "type": "string"
+        },
+        "width": {
+          "format": "int32",
+          "maximum": 8000,
+          "minimum": 40,
+          "type": "integer"
+        },
+        "height": {
+          "format": "int32",
+          "maximum": 8000,
+          "minimum": 40,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "height",
+        "type",
+        "width"
+      ],
+      "type": "object"
+    },
+    "DesignCreateDesignRequest": {
+      "properties": {
+        "type": {
+          "enum": [
+            "design"
+          ],
+          "type": "string"
+        },
+        "design_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        },
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "design_id",
+        "type"
+      ],
+      "type": "object"
+    },
+    "BrandTemplateCreateDesignRequest": {
+      "properties": {
+        "type": {
+          "enum": [
+            "brand_template"
+          ],
+          "type": "string"
+        },
+        "brand_template_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        },
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "brand_template_id",
+        "type"
+      ],
+      "type": "object"
+    },
+    "CreateDesignResponse": {
+      "properties": {
+        "design": {
+          "$ref": "#/definitions/Design"
+        }
+      },
+      "required": [
+        "design"
+      ],
+      "type": "object"
+    },
+    "GetDesignResponse": {
+      "properties": {
+        "design": {
+          "$ref": "#/definitions/Design"
+        }
+      },
+      "required": [
+        "design"
+      ],
+      "type": "object"
+    },
+    "GetDesignPagesResponse": {
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/definitions/DesignPage"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "type": "object"
+    },
+    "DesignPage": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "index": {
+          "deprecated": true,
+          "format": "int32",
+          "maximum": 500,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "page_number": {
+          "format": "int32",
+          "maximum": 500,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "dimensions": {
+          "$ref": "#/definitions/PageDimensions"
+        },
+        "thumbnail": {
+          "$ref": "#/definitions/Thumbnail"
+        },
+        "design_type": {
+          "$ref": "#/definitions/DesignTypeOutputName"
+        }
+      },
+      "required": [
+        "design_type",
+        "index",
+        "page_number"
+      ],
+      "type": "object"
+    },
+    "PageDimensions": {
+      "properties": {
+        "width": {
+          "format": "double",
+          "type": "number"
+        },
+        "height": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "height",
+        "width"
+      ],
+      "type": "object"
+    },
+    "GetDesignExportFormatsResponse": {
+      "properties": {
+        "formats": {
+          "$ref": "#/definitions/ExportFormatOptions"
+        }
+      },
+      "required": [
+        "formats"
+      ],
+      "type": "object"
+    },
+    "ExportFormatOptions": {
+      "properties": {
+        "pdf": {
+          "$ref": "#/definitions/PdfExportFormatOption"
+        },
+        "jpg": {
+          "$ref": "#/definitions/JpgExportFormatOption"
+        },
+        "png": {
+          "$ref": "#/definitions/PngExportFormatOption"
+        },
+        "svg": {
+          "$ref": "#/definitions/SvgExportFormatOption"
+        },
+        "pptx": {
+          "$ref": "#/definitions/PptxExportFormatOption"
+        },
+        "gif": {
+          "$ref": "#/definitions/GifExportFormatOption"
+        },
+        "mp4": {
+          "$ref": "#/definitions/Mp4ExportFormatOption"
+        },
+        "html_bundle": {
+          "$ref": "#/definitions/HtmlBundleExportFormatOption"
+        },
+        "html_standalone": {
+          "$ref": "#/definitions/HtmlStandaloneExportFormatOption"
+        },
+        "csv": {
+          "$ref": "#/definitions/CsvExportFormatOption"
+        }
+      },
+      "type": "object"
+    },
+    "PdfExportFormatOption": {
+      "properties": {
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "JpgExportFormatOption": {
+      "properties": {
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "PngExportFormatOption": {
+      "properties": {
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "SvgExportFormatOption": {
+      "properties": {
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "PptxExportFormatOption": {
+      "properties": {
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "GifExportFormatOption": {
+      "properties": {
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "Mp4ExportFormatOption": {
+      "properties": {
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "HtmlBundleExportFormatOption": {
+      "properties": {
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "HtmlStandaloneExportFormatOption": {
+      "properties": {
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "CsvExportFormatOption": {
+      "properties": {
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "GetDesignDatasetResponse": {
+      "properties": {
+        "dataset": {
+          "additionalProperties": {
+            "$ref": "#/definitions/DataField"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "CreateDesignGenerationJobRequestV2": {
+      "properties": {
+        "brief": {
+          "maxLength": 5000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "design_type": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/DesignGenerationDesignTypeInputV2"
+            }
+          ]
+        },
+        "outline": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/DesignGenerationOutlineV2"
+            }
+          ]
+        }
+      },
+      "required": [
+        "brief",
+        "design_type"
+      ],
+      "type": "object"
+    },
+    "DesignGenerationDesignTypeInputV2": {
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/DesignGenerationDesignTypeV2"
+        },
+        "name": {
+          "$ref": "#/definitions/DesignGenerationDesignTypeNameV2"
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "DesignGenerationDesignTypeV2": {
+      "enum": [
+        "preset"
+      ],
+      "type": "string"
+    },
+    "DesignGenerationDesignTypeNameV2": {
+      "enum": [
+        "doc",
+        "presentation"
+      ],
+      "type": "string"
+    },
+    "DesignGenerationOutlineV2": {
+      "properties": {
+        "sections": {
+          "items": {
+            "$ref": "#/definitions/DesignGenerationOutlineSectionV2"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "sections"
+      ],
+      "type": "object"
+    },
+    "DesignGenerationOutlineSectionV2": {
+      "properties": {
+        "title": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "points": {
+          "items": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 50,
+          "type": "array"
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "type": "object"
+    },
+    "CreateDesignGenerationJobResponseV2": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/DesignGenerationJobV2"
+        },
+        "quota_usage": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/CreditQuotaSuccessInfo"
+            }
+          ]
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "DesignGenerationJobV2": {
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/DesignGenerationJobStatusV2"
+        },
+        "result": {
+          "$ref": "#/definitions/DesignGenerationJobResultV2"
+        },
+        "error": {
+          "$ref": "#/definitions/DesignGenerationJobErrorV2"
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ],
+      "type": "object"
+    },
+    "DesignGenerationJobStatusV2": {
+      "enum": [
+        "failed",
+        "in_progress",
+        "success"
+      ],
+      "type": "string"
+    },
+    "DesignGenerationJobResultV2": {
+      "properties": {
+        "design": {
+          "$ref": "#/definitions/DesignSummary"
+        }
+      },
+      "required": [
+        "design"
+      ],
+      "type": "object"
+    },
+    "DesignSummary": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "$ref": "#/definitions/Thumbnail"
+        },
+        "urls": {
+          "$ref": "#/definitions/DesignLinks"
+        },
+        "created_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "page_count": {
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "updated_at",
+        "urls"
+      ],
+      "type": "object"
+    },
+    "DesignGenerationJobErrorV2": {
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/DesignGenerationJobErrorCodeV2"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "DesignGenerationJobErrorCodeV2": {
+      "enum": [
+        "content_not_allowed",
+        "generation_failed"
+      ],
+      "type": "string"
+    },
+    "CreditQuotaSuccessInfo": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/CreditQuotaUsageSummary"
+        },
+        {
+          "properties": {
+            "usage_review_link": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ]
+    },
+    "CreditQuotaUsageSummary": {
+      "properties": {
+        "used_percentage": {
+          "format": "int32",
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "resets_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "using_bonus_credits": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "GetDesignGenerationJobResponseV2": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/DesignGenerationJobV2"
+        },
+        "quota_usage": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/CreditQuotaSuccessInfo"
+            }
+          ]
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "CreateUrlImportJobRequest": {
+      "properties": {
+        "title": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "url": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        },
+        "mime_type": {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "url"
+      ],
+      "type": "object"
+    },
+    "CreateUrlImportJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/DesignImportJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "DesignImportJob": {
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/DesignImportStatus"
+        },
+        "result": {
+          "$ref": "#/definitions/DesignImportJobResult"
+        },
+        "error": {
+          "$ref": "#/definitions/DesignImportError"
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ],
+      "type": "object"
+    },
+    "DesignImportStatus": {
+      "enum": [
+        "failed",
+        "in_progress",
+        "success"
+      ],
+      "type": "string"
+    },
+    "DesignImportJobResult": {
+      "properties": {
+        "designs": {
+          "items": {
+            "$ref": "#/definitions/DesignSummary"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "designs"
+      ],
+      "type": "object"
+    },
+    "DesignImportError": {
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/DesignImportErrorCode"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "DesignImportErrorCode": {
+      "enum": [
+        "design_creation_throttled",
+        "design_import_throttled",
+        "duplicate_import",
+        "internal_error",
+        "invalid_file",
+        "fetch_failed"
+      ],
+      "type": "string"
+    },
+    "GetUrlImportJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/DesignImportJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "CreateDesignExportJobRequest": {
+      "properties": {
+        "design_id": {
+          "type": "string"
+        },
+        "format": {
+          "$ref": "#/definitions/ExportFormat"
+        }
+      },
+      "required": [
+        "design_id",
+        "format"
+      ],
+      "type": "object"
+    },
+    "ExportFormat": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/PdfExportFormat"
+        },
+        {
+          "$ref": "#/definitions/JpgExportFormat"
+        },
+        {
+          "$ref": "#/definitions/PngExportFormat"
+        },
+        {
+          "$ref": "#/definitions/PptxExportFormat"
+        },
+        {
+          "$ref": "#/definitions/GifExportFormat"
+        },
+        {
+          "$ref": "#/definitions/Mp4ExportFormat"
+        },
+        {
+          "$ref": "#/definitions/HtmlBundleExportFormat"
+        },
+        {
+          "$ref": "#/definitions/HtmlStandaloneExportFormat"
+        },
+        {
+          "$ref": "#/definitions/CsvExportFormat"
+        }
+      ],
+      "type": "object"
+    },
+    "PdfExportFormat": {
+      "properties": {
+        "type": {
+          "enum": [
+            "pdf"
+          ],
+          "type": "string"
+        },
+        "export_quality": {
+          "$ref": "#/definitions/ExportQuality"
+        },
+        "size": {
+          "$ref": "#/definitions/ExportPageSize"
+        },
+        "pages": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "ExportQuality": {
+      "default": "regular",
+      "enum": [
+        "regular",
+        "pro"
+      ],
+      "type": "string"
+    },
+    "ExportPageSize": {
+      "default": "a4",
+      "enum": [
+        "a4",
+        "a3",
+        "letter",
+        "legal"
+      ],
+      "type": "string"
+    },
+    "JpgExportFormat": {
+      "properties": {
+        "type": {
+          "enum": [
+            "jpg"
+          ],
+          "type": "string"
+        },
+        "export_quality": {
+          "$ref": "#/definitions/ExportQuality"
+        },
+        "quality": {
+          "format": "int32",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "height": {
+          "format": "int32",
+          "maximum": 25000,
+          "minimum": 40,
+          "type": "integer"
+        },
+        "width": {
+          "format": "int32",
+          "maximum": 25000,
+          "minimum": 40,
+          "type": "integer"
+        },
+        "pages": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "quality",
+        "type"
+      ],
+      "type": "object"
+    },
+    "PngExportFormat": {
+      "properties": {
+        "type": {
+          "enum": [
+            "png"
+          ],
+          "type": "string"
+        },
+        "export_quality": {
+          "$ref": "#/definitions/ExportQuality"
+        },
+        "height": {
+          "format": "int32",
+          "maximum": 25000,
+          "minimum": 40,
+          "type": "integer"
+        },
+        "width": {
+          "format": "int32",
+          "maximum": 25000,
+          "minimum": 40,
+          "type": "integer"
+        },
+        "lossless": {
+          "default": true,
+          "type": "boolean"
+        },
+        "transparent_background": {
+          "default": false,
+          "type": "boolean"
+        },
+        "as_single_image": {
+          "default": false,
+          "type": "boolean"
+        },
+        "pages": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "PptxExportFormat": {
+      "properties": {
+        "type": {
+          "enum": [
+            "pptx"
+          ],
+          "type": "string"
+        },
+        "pages": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "GifExportFormat": {
+      "properties": {
+        "type": {
+          "enum": [
+            "gif"
+          ],
+          "type": "string"
+        },
+        "export_quality": {
+          "$ref": "#/definitions/ExportQuality"
+        },
+        "height": {
+          "format": "int32",
+          "maximum": 25000,
+          "minimum": 40,
+          "type": "integer"
+        },
+        "width": {
+          "format": "int32",
+          "maximum": 25000,
+          "minimum": 40,
+          "type": "integer"
+        },
+        "pages": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "Mp4ExportFormat": {
+      "properties": {
+        "type": {
+          "enum": [
+            "mp4"
+          ],
+          "type": "string"
+        },
+        "export_quality": {
+          "$ref": "#/definitions/ExportQuality"
+        },
+        "quality": {
+          "$ref": "#/definitions/Mp4ExportQuality"
+        },
+        "pages": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "quality",
+        "type"
+      ],
+      "type": "object"
+    },
+    "Mp4ExportQuality": {
+      "enum": [
+        "horizontal_480p",
+        "horizontal_720p",
+        "horizontal_1080p",
+        "horizontal_4k",
+        "vertical_480p",
+        "vertical_720p",
+        "vertical_1080p",
+        "vertical_4k"
+      ],
+      "type": "string"
+    },
+    "HtmlBundleExportFormat": {
+      "properties": {
+        "type": {
+          "enum": [
+            "html_bundle"
+          ],
+          "type": "string"
+        },
+        "pages": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "maxItems": 1,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "HtmlStandaloneExportFormat": {
+      "properties": {
+        "type": {
+          "enum": [
+            "html_standalone"
+          ],
+          "type": "string"
+        },
+        "pages": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "maxItems": 1,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "CsvExportFormat": {
+      "properties": {
+        "type": {
+          "enum": [
+            "csv"
+          ],
+          "type": "string"
+        },
+        "pages": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "CreateDesignExportJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/ExportJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "ExportJob": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/DesignExportStatus"
+        },
+        "urls": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "error": {
+          "$ref": "#/definitions/ExportError"
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ],
+      "type": "object"
+    },
+    "DesignExportStatus": {
+      "enum": [
+        "failed",
+        "in_progress",
+        "success"
+      ],
+      "type": "string"
+    },
+    "ExportError": {
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ExportErrorCode"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "ExportErrorCode": {
+      "enum": [
+        "license_required",
+        "approval_required",
+        "internal_failure"
+      ],
+      "type": "string"
+    },
+    "GetDesignExportJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/ExportJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "GetFolderResponse": {
+      "properties": {
+        "folder": {
+          "$ref": "#/definitions/Folder"
+        }
+      },
+      "required": [
+        "folder"
+      ],
+      "type": "object"
+    },
+    "Folder": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "created_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "thumbnail": {
+          "$ref": "#/definitions/Thumbnail"
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "name",
+        "updated_at"
+      ],
+      "type": "object"
+    },
+    "FolderItemType": {
+      "enum": [
+        "design",
+        "folder",
+        "image",
+        "brand_template"
+      ],
+      "type": "string"
+    },
+    "FolderItemSortBy": {
+      "default": "modified_descending",
+      "enum": [
+        "created_ascending",
+        "created_descending",
+        "modified_ascending",
+        "modified_descending",
+        "title_ascending",
+        "title_descending"
+      ],
+      "type": "string"
+    },
+    "FolderItemPinStatus": {
+      "default": "any",
+      "enum": [
+        "any",
+        "pinned"
+      ],
+      "type": "string"
+    },
+    "ListFolderItemsResponse": {
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/definitions/FolderItemSummary"
+          },
+          "type": "array"
+        },
+        "continuation": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "type": "object"
+    },
+    "FolderItemSummary": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/FolderItem"
+        },
+        {
+          "$ref": "#/definitions/DesignItem"
+        },
+        {
+          "$ref": "#/definitions/ImageItem"
+        },
+        {
+          "$ref": "#/definitions/BrandTemplateItem"
+        }
+      ],
+      "type": "object"
+    },
+    "FolderItem": {
+      "properties": {
+        "type": {
+          "enum": [
+            "folder"
+          ],
+          "type": "string"
+        },
+        "folder": {
+          "$ref": "#/definitions/Folder"
+        }
+      },
+      "required": [
+        "folder",
+        "type"
+      ],
+      "type": "object"
+    },
+    "DesignItem": {
+      "properties": {
+        "type": {
+          "enum": [
+            "design"
+          ],
+          "type": "string"
+        },
+        "design": {
+          "$ref": "#/definitions/DesignSummary"
+        }
+      },
+      "required": [
+        "design",
+        "type"
+      ],
+      "type": "object"
+    },
+    "ImageItem": {
+      "properties": {
+        "type": {
+          "enum": [
+            "image"
+          ],
+          "type": "string"
+        },
+        "image": {
+          "$ref": "#/definitions/AssetSummary"
+        }
+      },
+      "required": [
+        "image",
+        "type"
+      ],
+      "type": "object"
+    },
+    "AssetSummary": {
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/AssetType"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "created_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "thumbnail": {
+          "$ref": "#/definitions/Thumbnail"
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "name",
+        "tags",
+        "type",
+        "updated_at"
+      ],
+      "type": "object"
+    },
+    "BrandTemplateItem": {
+      "properties": {
+        "type": {
+          "enum": [
+            "brand_template"
+          ],
+          "type": "string"
+        },
+        "brand_template": {
+          "$ref": "#/definitions/BrandTemplateSummary"
+        }
+      },
+      "required": [
+        "brand_template",
+        "type"
+      ],
+      "type": "object"
+    },
+    "BrandTemplateSummary": {
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "view_url": {
+          "type": "string"
+        },
+        "create_url": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "$ref": "#/definitions/Thumbnail"
+        },
+        "created_at": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "create_url",
+        "created_at",
+        "id",
+        "title",
+        "updated_at",
+        "view_url"
+      ],
+      "type": "object"
+    },
+    "MoveFolderItemRequest": {
+      "properties": {
+        "to_folder_id": {
+          "maxLength": 50,
+          "minLength": 1,
+          "type": "string"
+        },
+        "item_id": {
+          "maxLength": 50,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "item_id",
+        "to_folder_id"
+      ],
+      "type": "object"
+    },
+    "CreateFolderRequest": {
+      "properties": {
+        "name": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "parent_folder_id": {
+          "maxLength": 50,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "parent_folder_id"
+      ],
+      "type": "object"
+    },
+    "CreateFolderResponse": {
+      "properties": {
+        "folder": {
+          "$ref": "#/definitions/Folder"
+        }
+      },
+      "type": "object"
+    },
+    "CreateImageGenerationJobRequest": {
+      "properties": {
+        "prompt": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "aspect_ratio": {
+          "$ref": "#/definitions/ImageGenerationAspectRatio"
+        },
+        "model": {
+          "$ref": "#/definitions/ImageGenerationModel"
+        },
+        "idempotency_key": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "asset_upload": {
+          "$ref": "#/definitions/ImageGenerationAssetUpload"
+        }
+      },
+      "required": [
+        "idempotency_key",
+        "prompt"
+      ],
+      "type": "object"
+    },
+    "ImageGenerationAspectRatio": {
+      "default": "square",
+      "enum": [
+        "square",
+        "landscape",
+        "portrait"
+      ],
+      "type": "string"
+    },
+    "ImageGenerationModel": {
+      "enum": [
+        "lucid_origin",
+        "z_image_turbo"
+      ],
+      "type": "string"
+    },
+    "ImageGenerationAssetUpload": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/NoneImageGenerationAssetUpload"
+        },
+        {
+          "$ref": "#/definitions/UploadImageGenerationAssetUpload"
+        }
+      ]
+    },
+    "NoneImageGenerationAssetUpload": {
+      "properties": {
+        "type": {
+          "enum": [
+            "none"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "UploadImageGenerationAssetUpload": {
+      "properties": {
+        "type": {
+          "enum": [
+            "upload"
+          ],
+          "type": "string"
+        },
+        "asset_name": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "CreateImageGenerationJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/ImageGenerationJob"
+        },
+        "quota_usage": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/CreditQuotaSuccessInfo"
+            }
+          ]
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "ImageGenerationJob": {
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/ImageGenerationJobStatus"
+        },
+        "result": {
+          "$ref": "#/definitions/ImageGenerationJobResult"
+        },
+        "error": {
+          "$ref": "#/definitions/ImageGenerationError"
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ],
+      "type": "object"
+    },
+    "ImageGenerationJobStatus": {
+      "enum": [
+        "failed",
+        "in_progress",
+        "success"
+      ],
+      "type": "string"
+    },
+    "ImageGenerationJobResult": {
+      "properties": {
+        "image": {
+          "$ref": "#/definitions/GeneratedImage"
+        }
+      },
+      "required": [
+        "image"
+      ],
+      "type": "object"
+    },
+    "GeneratedImage": {
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "asset": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/AssetSummary"
+            }
+          ]
+        },
+        "width": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "height": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "height",
+        "url",
+        "width"
+      ],
+      "type": "object"
+    },
+    "ImageGenerationError": {
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ImageGenerationErrorCode"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "ImageGenerationErrorCode": {
+      "enum": [
+        "unsafe_input",
+        "timeout",
+        "model_not_available",
+        "model_retired",
+        "internal_error"
+      ],
+      "type": "string"
+    },
+    "GetImageGenerationJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/ImageGenerationJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "CreateImageTransformationJobRequest": {
+      "properties": {
+        "asset_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "transformations": {
+          "items": {
+            "$ref": "#/definitions/ImageTransformationType"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "asset_id",
+        "transformations"
+      ],
+      "type": "object"
+    },
+    "ImageTransformationType": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/BackgroundRemovalImageTransformation"
+        }
+      ]
+    },
+    "BackgroundRemovalImageTransformation": {
+      "properties": {
+        "type": {
+          "enum": [
+            "background_removal"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "CreateImageTransformationJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/ImageTransformationJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "ImageTransformationJob": {
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/ImageTransformationJobStatus"
+        },
+        "result": {
+          "$ref": "#/definitions/ImageTransformationJobResult"
+        },
+        "error": {
+          "$ref": "#/definitions/ImageTransformationError"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "type": "object"
+    },
+    "ImageTransformationJobStatus": {
+      "enum": [
+        "failed",
+        "in_progress",
+        "success"
+      ],
+      "type": "string"
+    },
+    "ImageTransformationJobResult": {
+      "properties": {
+        "asset": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Asset"
+            }
+          ]
+        }
+      },
+      "required": [
+        "asset"
+      ],
+      "type": "object"
+    },
+    "ImageTransformationError": {
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ImageTransformationErrorCode"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "ImageTransformationErrorCode": {
+      "enum": [
+        "no_foreground_found",
+        "quota_exceeded",
+        "internal_error"
+      ],
+      "type": "string"
+    },
+    "GetImageTransformationJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/ImageTransformationJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "CreateDesignMergeJobRequest": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/NewDesignCreateDesignMergeJobRequest"
+        },
+        {
+          "$ref": "#/definitions/ModifyDesignCreateDesignMergeJobRequest"
+        }
+      ]
+    },
+    "NewDesignCreateDesignMergeJobRequest": {
+      "properties": {
+        "type": {
+          "enum": [
+            "create_new_design"
+          ],
+          "type": "string"
+        },
+        "operations": {
+          "items": {
+            "$ref": "#/definitions/DesignMergeOperation"
+          },
+          "maxItems": 500,
+          "minItems": 1,
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "operations",
+        "title",
+        "type"
+      ],
+      "type": "object"
+    },
+    "DesignMergeOperation": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/InsertPagesDesignMergeOperation"
+        },
+        {
+          "$ref": "#/definitions/MovePagesDesignMergeOperation"
+        },
+        {
+          "$ref": "#/definitions/DeletePagesDesignMergeOperation"
+        }
+      ]
+    },
+    "InsertPagesDesignMergeOperation": {
+      "properties": {
+        "type": {
+          "enum": [
+            "insert_pages"
+          ],
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/MergeSourceForInsertPagesOperation"
+        },
+        "after_page_number": {
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "source",
+        "type"
+      ],
+      "type": "object"
+    },
+    "MergeSourceForInsertPagesOperation": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/DesignMergeSourceForInsertPagesOperation"
+        }
+      ]
+    },
+    "DesignMergeSourceForInsertPagesOperation": {
+      "properties": {
+        "type": {
+          "enum": [
+            "design"
+          ],
+          "type": "string"
+        },
+        "design_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        },
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "design_id",
+        "type"
+      ],
+      "type": "object"
+    },
+    "MovePagesDesignMergeOperation": {
+      "properties": {
+        "type": {
+          "enum": [
+            "move_pages"
+          ],
+          "type": "string"
+        },
+        "from_page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "to_after_page_number": {
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "from_page_numbers",
+        "to_after_page_number",
+        "type"
+      ],
+      "type": "object"
+    },
+    "DeletePagesDesignMergeOperation": {
+      "properties": {
+        "type": {
+          "enum": [
+            "delete_pages"
+          ],
+          "type": "string"
+        },
+        "page_numbers": {
+          "items": {
+            "format": "int32",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "page_numbers",
+        "type"
+      ],
+      "type": "object"
+    },
+    "ModifyDesignCreateDesignMergeJobRequest": {
+      "properties": {
+        "type": {
+          "enum": [
+            "modify_existing_design"
+          ],
+          "type": "string"
+        },
+        "design_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,50}$",
+          "type": "string"
+        },
+        "operations": {
+          "items": {
+            "$ref": "#/definitions/DesignMergeOperation"
+          },
+          "maxItems": 500,
+          "minItems": 1,
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "design_id",
+        "operations",
+        "type"
+      ],
+      "type": "object"
+    },
+    "CreateDesignMergeJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/DesignMergeJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "DesignMergeJob": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/DesignMergeJobStatus"
+        },
+        "result": {
+          "$ref": "#/definitions/DesignMergeJobResult"
+        },
+        "error": {
+          "$ref": "#/definitions/DesignMergeError"
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ],
+      "type": "object"
+    },
+    "DesignMergeJobStatus": {
+      "enum": [
+        "in_progress",
+        "success",
+        "failed"
+      ],
+      "type": "string"
+    },
+    "DesignMergeJobResult": {
+      "properties": {
+        "design": {
+          "$ref": "#/definitions/DesignSummary"
+        }
+      },
+      "required": [
+        "design"
+      ],
+      "type": "object"
+    },
+    "DesignMergeError": {
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/DesignMergeErrorCode"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "DesignMergeErrorCode": {
+      "enum": [
+        "thumbnail_generation_error",
+        "merge_error",
+        "create_design_error",
+        "modify_design_error"
+      ],
+      "type": "string"
+    },
+    "GetDesignMergeJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/DesignMergeJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "CreateDesignResizeJobRequest": {
+      "properties": {
+        "design_id": {
+          "type": "string"
+        },
+        "design_type": {
+          "$ref": "#/definitions/DesignTypeInput"
+        }
+      },
+      "required": [
+        "design_id",
+        "design_type"
+      ],
+      "type": "object"
+    },
+    "CreateDesignResizeJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/DesignResizeJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    },
+    "DesignResizeJob": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/DesignResizeStatus"
+        },
+        "result": {
+          "$ref": "#/definitions/DesignResizeJobResult"
+        },
+        "error": {
+          "$ref": "#/definitions/DesignResizeError"
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ],
+      "type": "object"
+    },
+    "DesignResizeStatus": {
+      "enum": [
+        "in_progress",
+        "success",
+        "failed"
+      ],
+      "type": "string"
+    },
+    "DesignResizeJobResult": {
+      "properties": {
+        "design": {
+          "$ref": "#/definitions/DesignSummary"
+        },
+        "trial_information": {
+          "$ref": "#/definitions/TrialInformation"
+        }
+      },
+      "required": [
+        "design"
+      ],
+      "type": "object"
+    },
+    "TrialInformation": {
+      "properties": {
+        "uses_remaining": {
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "upgrade_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "upgrade_url",
+        "uses_remaining"
+      ],
+      "type": "object"
+    },
+    "DesignResizeError": {
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/DesignResizeErrorCode"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "DesignResizeErrorCode": {
+      "enum": [
+        "thumbnail_generation_error",
+        "design_resize_error",
+        "create_design_error",
+        "trial_quota_exceeded"
+      ],
+      "type": "string"
+    },
+    "GetDesignResizeJobResponse": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/DesignResizeJob"
+        }
+      },
+      "required": [
+        "job"
+      ],
+      "type": "object"
+    }
+  }
+}
