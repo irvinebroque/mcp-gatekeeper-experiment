@@ -5,6 +5,4 @@ node_modules/
 .wrangler/
 dist/
 .dev.vars*
-research/upstream/*.html
-research/upstream/get-design-content.txt
-research/upstream/list-folder-items.txt
+src/generated/

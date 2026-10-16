@@ -1,5 +1,5 @@
 import { clean, items, object, policy, string, validate, type Data, type ToolClient } from "./protocol";
-import type { ApprovalQueue } from "../research/upstream/gatekeeper";
+import type { ApprovalQueue } from "./host/gatekeeper";
 
 export type Scope = { kind: "library" } | { kind: "folder"; id: string; ancestors?: string[] } | { kind: "design"; id: string; locator: string };
 export type Ref = string | { action: number; kind: "folder" | "comment" | "design" };

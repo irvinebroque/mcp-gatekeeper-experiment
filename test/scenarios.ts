@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import catalog from "../research/tool-map.json";
+import catalog from "../schemas/canva.json";
 export async function runScenarios(worker: any) {
 const D = "Dabcdefghij";
 let checks = 0;
@@ -68,7 +68,7 @@ let checks = 0;
   lib[Symbol.dispose](); assert.equal((await design.getInfo()).id, D); checks++;
   const allCalls = [...(await worker.stats("design")).calls, ...(await worker.stats("library")).calls];
   const used = new Set(allCalls.map((x: any) => x.name));
-  const missing = catalog.tools.filter((x: any) => x.classification !== "excluded" && !used.has(x.name)).map((x: any) => x.name);
+  const missing = catalog.tools.filter(x => !used.has(x.name)).map(x => x.name);
   assert.deepEqual(missing, []); checks++;
 
   const oauth = await worker.oauth();

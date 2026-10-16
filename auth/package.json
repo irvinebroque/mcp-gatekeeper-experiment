@@ -1,8 +1,13 @@
 {
-  "name": "@experiment/canva-credentials",
+  "name": "canva-credentials",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "scripts": { "build": "cf build", "dev": "cf dev" },
+  "scripts": {
+    "prebuild": "npm --prefix .. run generate",
+    "build": "cf build",
+    "predev": "npm --prefix .. run generate",
+    "dev": "cf dev"
+  },
   "devDependencies": { "@cloudflare/vite-plugin": "1.64.0", "cf": "1.0.0-beta.18", "vite": "8.3.4" }
 }

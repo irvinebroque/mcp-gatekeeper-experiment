@@ -1,5 +1,5 @@
 import { DurableObject } from "cloudflare:workers";
-import type { GatekeeperConnectCallback, GatekeeperUser } from "../research/upstream/gatekeeper";
+import type { GatekeeperConnectCallback, GatekeeperUser } from "../src/host/gatekeeper";
 import { McpClient, boundedText, object, string, type Data } from "../src/protocol";
 import { RESOURCES } from "../src/core";
 import { patterns } from "../src/grants";

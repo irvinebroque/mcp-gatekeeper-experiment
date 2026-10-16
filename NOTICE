@@ -1,24 +1,19 @@
-Canva MCP Gatekeeper experiment
+Canva Gatekeeper
 
 This project contains materials from Cloudflare OS, licensed under Apache-2.0:
 https://github.com/cloudflare/cloudflare-os
-Snapshot: fccd425a2c8d357130ceb3e3041bbe240e3f1108
+Source commit: fccd425a2c8d357130ceb3e3041bbe240e3f1108
 
-- research/upstream/gatekeeper.ts: canonical Gatekeeper interface definitions.
-- research/upstream/write-gatekeeper-SKILL.md: Gatekeeper authoring guidance.
+- src/host/gatekeeper.ts: unmodified canonical Gatekeeper interface definitions
+  from packages/workshop-shared/src/gatekeeper.ts.
+  SHA-256: 6c87d65bb8ff3450c6e0f0529754f8e7a31dd0e996ad0e67fe314cc1f95b47aa
 - src/connect-pages.ts: adapted from packages/gatekeeper-kit/src/connect-pages.ts.
 
 The Apache-2.0 license is included in LICENSE.
 
-Cap'n Web documentation snapshots in research/upstream/capnweb-* are from:
-https://github.com/cloudflare/capnweb
-Snapshot: 766655329fe4fe2dada67c8b4e82e3a81e38b194
-They retain the MIT license in research/upstream/LICENSE-capnweb.txt.
-The generated browser configurator includes Cap'n Web under that license.
+The generated browser configurator includes Cap'n Web under the MIT license in
+licenses/capnweb.txt. Generated schema validators use Ajv and ajv-formats under
+the MIT licenses in licenses/ajv.txt and licenses/ajv-formats.txt.
 
-Generated schema validators use Ajv and ajv-formats, under the MIT licenses in
-research/upstream/LICENSE-ajv.txt and research/upstream/LICENSE-ajv-formats.txt.
-
-research/tools.json and other discovery artifacts record Canva's published MCP
-tool schemas and descriptions for interoperability research. Canva is a trademark
-of its respective owner. This experiment is not an official Canva product.
+schemas/canva.json contains Canva MCP tool schemas needed for interoperability.
+Canva is a trademark of its respective owner. This is not an official Canva product.

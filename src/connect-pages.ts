@@ -1,6 +1,6 @@
 /** Hardened HTML and browser request guards for gatekeeper connect flows. */
 
-import type { ConnectHandoff } from "../research/upstream/gatekeeper";
+import type { ConnectHandoff } from "./host/gatekeeper";
 
 const HTML_ESCAPES: Readonly<Record<string, string>> = {
   "&": "&amp;",

@@ -2,13 +2,11 @@ import fs from "node:fs/promises";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import standaloneCode from "ajv/dist/standalone/index.js";
-const { tools } = JSON.parse(await fs.readFile("research/tools.json", "utf8"));
-const { tools: map } = JSON.parse(await fs.readFile("research/tool-map.json", "utf8"));
+const { tools } = JSON.parse(await fs.readFile("schemas/canva.json", "utf8"));
 const ajv = new Ajv({ code: { source: true, esm: true }, strict: false, allErrors: true });
 addFormats(ajv);
 const exports = {};
 for (const t of tools) {
-  if (map.find(m => m.name === t.name).classification === "excluded") continue;
   ajv.addSchema(t.inputSchema, t.name);
   exports[t.name.replaceAll("-", "_")] = t.name;
   if (t.outputSchema) {
@@ -17,6 +15,7 @@ for (const t of tools) {
   }
 }
 await fs.mkdir("src/generated", { recursive: true });
+await fs.writeFile("src/generated/tool-policy.json", JSON.stringify(Object.fromEntries(tools.map(t => [t.name, t.classification]))) + "\n");
 let code = standaloneCode(ajv, exports);
 const modules = new Map();
 code = code.replace(/require\("([^"]+)"\)/g, (_, name) => {

@@ -1,5 +1,5 @@
 import * as validators from "./generated/validators.js";
-import map from "../research/tool-map.json";
+import toolPolicy from "./generated/tool-policy.json";
 
 export type Data = Record<string, any>;
 export const clean = <T>(x: T): T => JSON.parse(JSON.stringify(x));
@@ -18,7 +18,7 @@ export function items(x: unknown): Data[] {
 function parseJson(text: string): unknown {
   try { return JSON.parse(text); } catch { throw new Error("Canva returned malformed JSON"); }
 }
-export const policy = new Map(map.tools.map(t => [t.name, t.classification]));
+export const policy = new Map(Object.entries(toolPolicy));
 export function validate(name: string, args: Data, output = false): void {
   const key = name.replaceAll("-", "_") + (output ? "_output" : "");
   const check = (validators as Record<string, (x: unknown) => boolean>)[key];
@@ -117,7 +117,7 @@ export class McpClient implements ToolClient {
       if (texts.length !== 1) throw new Error(`Unexpected content for ${name}`);
       const text = string(texts[0].text);
       if (name === "get-design-content") {
-        // Live Canva returns flattened text; earlier research normalized it as { text }.
+        // Canva can return flattened text or a structured { text } result.
         try { const parsed = object(parseJson(text)); if (typeof parsed.text === "string") return { text: parsed.text }; } catch {}
         return { text };
       }

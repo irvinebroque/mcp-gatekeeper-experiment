@@ -1,5 +1,5 @@
 import { RpcTarget, type RpcStub } from "cloudflare:workers";
-import type { ApprovalQueue } from "../research/upstream/gatekeeper";
+import type { ApprovalQueue } from "./host/gatekeeper";
 import type * as T from "./types";
 import { Engine, designLocator, id, publicSource, resultId, retrySeconds, type Ref, type Target } from "./core";
 import { clean, items, object, string, type Data } from "./protocol";

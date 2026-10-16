@@ -1,6 +1,6 @@
 // Test-only controller for the real two-Worker connection and resource path.
 import { WorkerEntrypoint, DurableObject, RpcTarget, RpcStub } from "cloudflare:workers";
-import type { GatekeeperUser, Gatekeeper, ApprovalQueue } from "../research/upstream/gatekeeper";
+import type { GatekeeperUser, Gatekeeper, ApprovalQueue } from "../src/host/gatekeeper";
 import type { CanvaDesignEditor } from "../src/types";
 // Canva's implementation omits the unused Git cache argument, as the host contract permits.
 type CanvaFacet = Omit<Gatekeeper<CanvaDesignEditor>, "applyAction"> & { applyAction(action: number): Promise<void> };

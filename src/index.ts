@@ -1,5 +1,5 @@
 import { WorkerEntrypoint, DurableObject, RpcTarget, RpcStub } from "cloudflare:workers";
-import type { GatekeeperVendor as Vendor, GatekeeperUser, GatekeeperUserVerifier, Gatekeeper, GatekeeperConnectCallback, GatekeeperConnectOptions, ApprovalQueue, ResourceConfiguratorFrame, AccountDescription } from "../research/upstream/gatekeeper";
+import type { GatekeeperVendor as Vendor, GatekeeperUser, GatekeeperUserVerifier, Gatekeeper, GatekeeperConnectCallback, GatekeeperConnectOptions, ApprovalQueue, ResourceConfiguratorFrame, AccountDescription } from "./host/gatekeeper";
 import { Engine, RESOURCES, parseResource, resourceFor, scopeUrl, type Scope } from "./core";
 import { createSession } from "./sessions";
 import { JsonStore } from "./storage";

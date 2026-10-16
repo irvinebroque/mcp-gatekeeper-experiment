@@ -1,5 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": { "types": ["node"] },
-  "include": ["test/live-harness.ts", "scripts/live*.ts", "src/raw.d.ts", ".cloudflare/types/index.d.ts"]
-}
