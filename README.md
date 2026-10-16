@@ -88,6 +88,14 @@ no account: they use OpenAPI-validated synthetic REST responses and workerd to
 check all reviewed operations, RPC boundaries, approvals, job dependencies, and
 the two-Worker Access and credential lifecycle.
 
+Live validation on October 16, 2026 also passed using a dedicated Canva REST app:
+PKCE authorization and token refresh; design search, metadata, pages, export
+formats, creation and PNG export; folder creation and read-back; and comment and
+reply creation. Workers RPC checks confirmed queued previews, approved writes,
+rejected writes, observation denial on cached reads, and folder boundaries.
+This validates those flows locally against Canva; other endpoints and a deployed
+Cloudflare Access integration have not been verified live.
+
 Run these in separate terminals:
 
 ```sh
@@ -107,6 +115,8 @@ for builds, deployment, secrets, and Access resource management. Discover curren
 commands with `cf cli search` and command help.
 
 1. Create or configure a Canva Developer Portal app with REST API capabilities.
+   Canva requires account MFA before enabling REST API access; passwordless
+   accounts must first set a password.
    Register `<BASE_URL>/callback` and enable the scopes needed by the selected
    operations. See [Canva authentication](https://www.canva.dev/docs/apps/rest-apis/authentication/).
    The credential Worker uses authorization code with PKCE and client-secret
