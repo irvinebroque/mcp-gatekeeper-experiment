@@ -1,0 +1,61 @@
+README.md
+  s_090afa6fa11405::t_e7b95aafe75d6d 11-13,58,67-72,115-116,126,131,133-135,141-144,173-178,182-184,193-194,207-208,215-218,229-230,277,282
+auth/account.ts
+  s_090afa6fa11405::t_c3b007f3ddf4eb 2-8,10,12,44,47,58,61-62,65,82,85,100,102-103,152,154-156
+auth/cloudflare.config.ts
+  s_090afa6fa11405::t_ed600f9c45436e 1-25
+auth/index.ts
+  s_090afa6fa11405::t_e10d2059f97e48 1-45
+auth/package-lock.json
+  s_090afa6fa11405::t_f1d0b0610fe98e 1-2502
+auth/package.json
+  s_090afa6fa11405::t_2ab1956816f40e 1-8
+auth/vite.config.ts
+  s_090afa6fa11405::t_285084b760da56 1-3
+cloudflare.config.ts
+  s_090afa6fa11405::t_64e4561b3526db 3,5,12-13,19,21
+infra/access-application.example.json
+  s_090afa6fa11405::t_d1497ccd6bfb78 1-25
+package.json
+  s_090afa6fa11405::t_239116338fb944 10-11,14-15,18
+research/cloudflare-access-managed-oauth.md
+  s_090afa6fa11405::t_c82913dada6b0e 1-191
+research/write-gatekeeper-skill-feedback.md
+  s_090afa6fa11405::t_7c1372d88d1791 8-10,150
+src/access.ts
+  s_090afa6fa11405::t_0d754535aeaef5 1-17
+src/grants.ts
+  s_090afa6fa11405::t_09ee345cdfc981 1-7
+src/index.ts
+  s_090afa6fa11405::t_aea91b933a68e7 6-8,11,19-21,34-36,41-42,46,53-55,59-60,62,82,84
+src/protocol.ts
+  s_090afa6fa11405::t_7b09e76fc47ec6 81
+test/access-harness.ts
+  s_090afa6fa11405::t_81a4e072985b48 1-83
+test/access-runtime.ts
+  s_090afa6fa11405::t_c11cc5fa3577c8 1-100
+test/access.test.ts
+  s_090afa6fa11405::t_d34aa94f4611fb 1-11
+test/harness.ts
+  s_090afa6fa11405::t_9187a190a972e9 6
+test/scenarios.ts
+  s_090afa6fa11405::t_2f1f203989f13b 75,78,82
+tsconfig.access.json
+  s_090afa6fa11405::t_0a8b762ab860f9 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "1cd85368c71c2d2a32b24e3f1a54532855c934ae",
+  "prompts": {},
+  "sessions": {
+    "s_090afa6fa11405": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1464e-4672-7502-b735-b7c6fde4932b",
+        "model": "unknown"
+      },
+      "human_author": "Brendan Irvine-Broque <birvine-broque@cloudflare.com>"
+    }
+  }
+}
