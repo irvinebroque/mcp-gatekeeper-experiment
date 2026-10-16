@@ -1,0 +1,19 @@
+scripts/discover-canva.mjs
+  s_090afa6fa11405::t_767cb93acd7193 8-11,37,162-167,169,177
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "73134abdcecc08bbf15f20b8cb51ccc042eaa397",
+  "prompts": {},
+  "sessions": {
+    "s_090afa6fa11405": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1464e-4672-7502-b735-b7c6fde4932b",
+        "model": "unknown"
+      },
+      "human_author": "Brendan Irvine-Broque <birvine-broque@cloudflare.com>"
+    }
+  }
+}
