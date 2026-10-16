@@ -1,0 +1,43 @@
+.gitignore
+  s_090afa6fa11405::t_8934e3f5f832ae 8
+NOTICE
+  s_090afa6fa11405::t_a76de28c101775 1,5,7-9,14-16,18-19
+auth/account.ts
+  s_090afa6fa11405::t_34742fe33e4b17 2
+auth/package-lock.json
+  s_090afa6fa11405::t_61bbed3cd72523 2,8
+schemas/canva.json
+  s_090afa6fa11405::t_e505aa6151e537 5,32,82,109,148,261,286,318,354,395,432,454,487,530,564,623,698,729,760,788,868,1016,1041,1504,1527,1550,1579,1629,1651,1674,1703,1731,1753,1775,1797,1931,2051,2189,2321,2470,2565
+scripts/generate-validators.mjs
+  s_090afa6fa11405::t_1c7e544a5d7ae6 5,18
+src/connect-pages.ts
+  s_090afa6fa11405::t_0ee615b44380bf 3
+src/core.ts
+  s_090afa6fa11405::t_9dedf59dc43b44 2
+src/index.ts
+  s_090afa6fa11405::t_414b0996a14811 2
+src/protocol.ts
+  s_090afa6fa11405::t_7cb05430d34c14 2,21,120
+src/sessions.ts
+  s_090afa6fa11405::t_eeb513614498c2 2
+test/access-harness.ts
+  s_090afa6fa11405::t_5aa09aca5d9708 3
+test/scenarios.ts
+  s_090afa6fa11405::t_aaa2a94f79ce5e 2,71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0b546c08b403aa6c3ee9e8d421c53fe819ca105a",
+  "prompts": {},
+  "sessions": {
+    "s_090afa6fa11405": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1464e-4672-7502-b735-b7c6fde4932b",
+        "model": "unknown"
+      },
+      "human_author": "Brendan Irvine-Broque <birvine-broque@cloudflare.com>"
+    }
+  }
+}
