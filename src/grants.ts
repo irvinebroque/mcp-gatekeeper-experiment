@@ -1,7 +1,8 @@
-import { RESOURCES } from "./core";
+import { RESOURCES } from "./resources";
 
 export function patterns(value?: string[]): string[] {
-  const p = value === undefined ? RESOURCES.map(r => r.urlPattern) : value;
-  if (!Array.isArray(p) || p.some(x => !RESOURCES.some(r => r.urlPattern === x))) throw new Error("Unknown resource grant");
+  const p = value === undefined ? RESOURCES.map((r) => r.urlPattern) : value;
+  if (!Array.isArray(p) || p.some((x) => !RESOURCES.some((r) => r.urlPattern === x)))
+    throw new Error("Unknown resource grant");
   return [...new Set(p)];
 }

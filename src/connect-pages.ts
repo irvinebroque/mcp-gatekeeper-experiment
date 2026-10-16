@@ -16,7 +16,7 @@ const HTML_ESCAPES: Readonly<Record<string, string>> = {
  * @returns Escaped HTML text.
  */
 export function escapeHtml(value: string): string {
-  return value.replace(/[&<>"']/g, char => HTML_ESCAPES[char]!);
+  return value.replace(/[&<>"']/g, (char) => HTML_ESCAPES[char]!);
 }
 
 /**
@@ -131,8 +131,10 @@ export const PAGE_STYLE = `
  * @returns A JavaScript expression evaluating to the value.
  */
 function scriptLiteral(value: unknown): string {
-  return JSON.stringify(value).replace(/[<>&\u2028\u2029]/g, char =>
-    `\\u${char.charCodeAt(0).toString(16).padStart(4, "0")}`);
+  return JSON.stringify(value).replace(
+    /[<>&\u2028\u2029]/g,
+    (char) => `\\u${char.charCodeAt(0).toString(16).padStart(4, "0")}`,
+  );
 }
 
 /**
@@ -190,8 +192,10 @@ export function connectHandoffPageHtml(handoff: ConnectHandoff): string {
 }
 
 /** The page a connect link that has expired or been used already lands on. */
-export const INVALID_LINK_HTML =
-  errorPageHtml("This link has expired", "Start the connection again.");
+export const INVALID_LINK_HTML = errorPageHtml(
+  "This link has expired",
+  "Start the connection again.",
+);
 
 /**
  * Renders a connect-flow error page.

@@ -12,7 +12,9 @@
     "dev": "cf dev",
     "dev:auth": "npm --prefix auth run dev --",
     "typecheck": "npm run generate && tsc --noEmit && tsc --project tsconfig.browser.json && tsc --project tsconfig.access.json",
-    "test": "npm run generate && tsx --test test/*.test.ts && tsx test/runtime.ts && tsx test/access-runtime.ts"
+    "test": "npm run generate && tsx --test test/*.test.ts && tsx test/runtime.ts && tsx test/access-runtime.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "engines": {
     "node": ">=22.18"
@@ -29,6 +31,7 @@
     "cf": "^1.0.0-beta.18",
     "esbuild": "^0.28.2",
     "miniflare": "^5.20261012.0-beta",
+    "prettier": "3.9.10",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vite": "^8.3.4"

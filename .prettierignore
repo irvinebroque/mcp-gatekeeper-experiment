@@ -1,0 +1,11 @@
+node_modules/
+.local/
+.cloudflare/
+.wrangler/
+dist/
+src/generated/
+# Pinned upstream contract and schemas are reviewed separately.
+src/host/
+schemas/
+package-lock.json
+auth/package-lock.json

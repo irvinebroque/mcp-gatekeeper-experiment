@@ -3,7 +3,12 @@ import * as worker from "./index" with { type: "cf-worker" };
 
 // Set this to the Access application's audience tag before deployment.
 export const accessAudience = "configure-access-audience";
-export const devAccess = { dev: { aud: accessAudience, identity: { user_uuid: "local-developer", email: "developer@example.com" } } };
+export const devAccess = {
+  dev: {
+    aud: accessAudience,
+    identity: { user_uuid: "local-developer", email: "developer@example.com" },
+  },
+};
 
 export const credentialWorker = defineWorker(({ mode }) => ({
   name: "canva-credentials",
