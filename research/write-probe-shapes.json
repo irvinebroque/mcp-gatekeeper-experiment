@@ -1,0 +1,222 @@
+{
+  "verifiedAt": "2026-10-16T20:47:14.733Z",
+  "valuesRemoved": true,
+  "toolResults": {
+    "create-folder": {
+      "folder": {
+        "id": "<string>",
+        "name": "<string>",
+        "created_at": "<number>",
+        "updated_at": "<number>",
+        "folder_url": "<string>"
+      }
+    },
+    "import-design-from-url": {
+      "job": {
+        "id": "<string>",
+        "status": "success",
+        "result": {
+          "designs": [
+            {
+              "id": "<string>",
+              "title": "<string>",
+              "urls": {
+                "edit_url": "<string>",
+                "view_url": "<string>"
+              },
+              "created_at": "<number>",
+              "updated_at": "<number>",
+              "page_count": "<number>"
+            }
+          ]
+        }
+      }
+    },
+    "copy-design": {
+      "design": {
+        "id": "<string>",
+        "title": "<string>",
+        "owner": {
+          "user_id": "<string>",
+          "team_id": "<string>"
+        },
+        "urls": {
+          "edit_url": "<string>",
+          "view_url": "<string>"
+        },
+        "created_at": "<number>",
+        "updated_at": "<number>",
+        "page_count": "<number>",
+        "design_types": [
+          "<string>"
+        ]
+      }
+    },
+    "move-item-to-folder": {
+      "status": "success",
+      "folder_url": "<string>"
+    },
+    "comment-on-design": {
+      "thread": {
+        "id": "<string>",
+        "design_id": "<string>",
+        "thread_type": {
+          "type": "<string>",
+          "content": {
+            "plaintext": "<string>"
+          },
+          "mentions": {}
+        },
+        "author": {
+          "id": "<string>",
+          "display_name": "<string>"
+        },
+        "created_at": "<number>",
+        "updated_at": "<number>"
+      }
+    },
+    "reply-to-comment": {
+      "reply": {
+        "id": "<string>",
+        "design_id": "<string>",
+        "thread_id": "<string>",
+        "author": {
+          "id": "<string>",
+          "display_name": "<string>"
+        },
+        "content": {
+          "plaintext": "<string>"
+        },
+        "mentions": {},
+        "created_at": "<number>",
+        "updated_at": "<number>"
+      }
+    },
+    "start-editing-transaction": {
+      "transaction": {
+        "status": "open",
+        "transaction_id": "<string>"
+      },
+      "edit_design_url": "<string>",
+      "richtexts": [
+        {
+          "page_index": "<number>",
+          "regions": [
+            {
+              "type": "<string>",
+              "text": "<string>"
+            }
+          ],
+          "containerElement": {
+            "type": "<string>",
+            "position": {
+              "top": "<number>",
+              "left": "<number>"
+            },
+            "dimension": {
+              "width": "<number>",
+              "height": "<number>"
+            }
+          },
+          "element_id": "<string>"
+        }
+      ],
+      "fills": [],
+      "thumbnails": [
+        {
+          "width": "<number>",
+          "height": "<number>",
+          "url": "<string>"
+        }
+      ],
+      "pages": [
+        {
+          "page_id": "<string>",
+          "page_number": "<number>",
+          "dimension": {
+            "width": "<number>",
+            "height": "<number>"
+          },
+          "is_responsive": false,
+          "is_empty": false,
+          "is_editable": true
+        }
+      ]
+    },
+    "perform-editing-operations": {
+      "richtexts": [
+        {
+          "page_index": "<number>",
+          "regions": [
+            {
+              "type": "<string>",
+              "text": "<string>"
+            }
+          ],
+          "containerElement": {
+            "type": "<string>",
+            "position": {
+              "top": "<number>",
+              "left": "<number>"
+            },
+            "dimension": {
+              "width": "<number>",
+              "height": "<number>"
+            }
+          },
+          "element_id": "<string>"
+        }
+      ],
+      "fills": [],
+      "thumbnails": [
+        {
+          "width": "<number>",
+          "height": "<number>",
+          "url": "<string>"
+        }
+      ],
+      "edit_operation_results": [
+        {
+          "status": "success",
+          "operation_info": {
+            "type": "<string>"
+          }
+        }
+      ],
+      "pages": [
+        {
+          "page_id": "<string>",
+          "page_number": "<number>",
+          "dimension": {
+            "width": "<number>",
+            "height": "<number>"
+          },
+          "is_responsive": false,
+          "is_empty": false,
+          "is_editable": true
+        }
+      ]
+    },
+    "commit-editing-transaction": {
+      "transaction": {
+        "id": "<string>",
+        "status": "committed"
+      }
+    },
+    "cancel-editing-transaction": {
+      "transaction": {
+        "id": "<string>",
+        "status": "cancelled"
+      }
+    },
+    "export-design": {
+      "job": {
+        "id": "<string>",
+        "status": "success",
+        "urls": [
+          "<string>"
+        ]
+      }
+    }
+  }
+}

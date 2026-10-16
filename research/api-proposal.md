@@ -131,14 +131,15 @@ or denied-by-default until the approval/observation security paths are in place.
 
 ## Evidence limits after implementation
 
-No live write tool, export, generation, draft, upload, or telemetry call was
-executed. All 41 mapped tools were exercised with synthetic responses in workerd;
+All 41 mapped tools were exercised with synthetic responses in workerd;
 refresh/reconnect/revocation, ambiguous writes, folder changes, and observation
 denials have local tests. Nine real read tools passed through the implemented
-adapter. Provider write behavior, revoked-token behavior, expired drafts,
+adapter. After the operator explicitly authorized live writes, 14 actions across
+11 write tools passed on a newly imported public PDF and its copy, including
+editing commit/cancel and export. See `live-write-verification.json` for the exact
+coverage and cleanup. Other write paths, revoked-token behavior, expired drafts,
 shared-link permissions, paid-plan restrictions, unprobed response variants, and
-host integration remain unverified. Live write testing should use disposable
-fixtures, recording creation and cleanup. Pending moves defer folder listings;
+host integration remain unverified. Pending moves defer folder listings;
 they are not fully simulated.
 
 The agent-facing JSDoc is self-contained and describes usage/results/errors without

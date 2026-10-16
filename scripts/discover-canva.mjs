@@ -5,6 +5,10 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 // Local research client: credentials and account responses never enter research/.
 const origin = 'https://mcp.canva.com';
 const endpoint = `${origin}/mcp`;
+const writeAuthorization = process.argv.includes('--write');
+if (writeAuthorization && process.argv.includes('--reuse')) throw new Error('Use --write to perform a fresh consent flow; refresh cannot expand an existing read grant.');
+const tokenFile = writeAuthorization ? '.local/oauth-write-tokens.json' : '.local/oauth-tokens.json';
+const writeScopes = ['design:content:write', 'folder:write', 'comment:write'];
 const redirect = 'http://127.0.0.1:8976/callback';
 await mkdir('.local', { recursive: true, mode: 0o700 });
 await mkdir('research', { recursive: true });
@@ -30,7 +34,7 @@ if (!client.client_id) throw new Error('Missing registered OAuth client ID');
 const verifier = randomBytes(32).toString('base64url');
 const state = randomBytes(32).toString('base64url');
 const challenge = createHash('sha256').update(verifier).digest('base64url');
-const scopes = resourceMetadata.scopes_supported.filter(s => s.endsWith(':read'));
+const scopes = resourceMetadata.scopes_supported.filter(s => s.endsWith(':read') || writeAuthorization && writeScopes.includes(s));
 const authorize = new URL(metadata.authorization_endpoint);
 authorize.search = new URLSearchParams({
   response_type: 'code', client_id: client.client_id, redirect_uri: redirect,
@@ -155,10 +159,14 @@ if (process.argv.includes('--reuse')) {
       const result = await fetch(metadata.token_endpoint, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ grant_type: 'authorization_code', code: url.searchParams.get('code'), client_id: client.client_id, code_verifier: verifier, redirect_uri: redirect, resource: endpoint }) });
       if (!result.ok) throw new Error(`Token exchange HTTP ${result.status}`);
       tokens = await result.json();
-      await writeFile('.local/oauth-tokens.json', JSON.stringify(tokens), { mode: 0o600 });
-      await discover();
+      await writeFile(tokenFile, JSON.stringify(tokens), { mode: 0o600 });
+      if (writeAuthorization) {
+        const granted = new Set((tokens.scope ?? '').split(' '));
+        if (!writeScopes.every(s => granted.has(s))) throw new Error('Canva did not grant all requested write scopes');
+        console.log('Write authorization complete. Credentials remain in ignored .local/; no writes performed.');
+      } else await discover();
       response.writeHead(200, { 'Content-Type': 'text/plain' });
-      response.end('Canva connected. Tool discovery is complete. You may return to Codex.');
+      response.end(writeAuthorization ? 'Canva write authorization completed. You may return to Codex.' : 'Canva connected. Tool discovery is complete. You may return to Codex.');
       server.close();
     } catch (error) {
       console.error(error.message);
@@ -166,7 +174,7 @@ if (process.argv.includes('--reuse')) {
       server.close();
     }
   });
-  server.listen(8976, '127.0.0.1', () => console.log('Open http://127.0.0.1:8976/login to authenticate with Canva. Requested read scopes:', scopes.join(' ')));
+  server.listen(8976, '127.0.0.1', () => console.log('Open http://127.0.0.1:8976/login to authenticate with Canva. Requested scopes:', scopes.join(' ')));
   server.on('close', () => clearTimeout(timeout));
   const timeout = setTimeout(() => { console.error('OAuth flow timed out.'); server.close(); }, 15 * 60_000);
 }

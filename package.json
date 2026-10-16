@@ -10,10 +10,11 @@
     "build": "cf build",
     "predev": "npm run generate",
     "dev": "cf dev",
-    "typecheck": "cf workers types --include-runtime && tsc --noEmit && tsc --project tsconfig.browser.json",
+    "typecheck": "cf workers types --include-runtime && tsc --noEmit && tsc --project tsconfig.browser.json && tsc --project tsconfig.live.json",
     "test": "tsx --test test/*.test.ts",
     "test:runtime": "tsx test/runtime.ts",
-    "test:live": "tsx scripts/live-smoke.ts"
+    "test:live": "tsx scripts/live-smoke.ts",
+    "test:live:write": "tsx scripts/live-write-smoke.ts"
   },
   "engines": {
     "node": ">=22.18"

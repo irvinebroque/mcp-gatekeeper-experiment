@@ -54,10 +54,19 @@ deployed or tested inside a running Cloudflare OS installation.
    OAuth, then a PR to `main`. The operator immediately said **“WAIT — before you
    take that step i want you to keep going on the original goal”**. That follow-up
    is deferred; this initial implementation retains its account OAuth code.
+8. After publication, the operator explicitly allowed writes to the Canva account
+   for testing. The agent obtained write scopes, imported a public one-page test
+   PDF, copied it, and ran 14 approved actions covering 11 write tools. It verified
+   committed text/title changes, cancelled changes, comments/replies, moves, and
+   downloadable PDF bytes. Both test designs were moved to recoverable Trash and
+   the empty test folder was removed. A Miniflare test harness issue with nested
+   RPC returns was resolved by running the scenario controller inside workerd;
+   no production adapter changes were needed for these write paths.
 
-The agent did not execute live writes, exports, generation, uploads, or draft
-transactions on the operator's account. Mutating paths were exercised with
-synthetic fixtures, not claimed as successful live Canva mutations.
+The initial pass used read-only live probes and synthetic write fixtures. The
+subsequent authorized live write pass touched only newly created test content.
+AI generation, asset uploads, brand publication, and the other untested write
+paths remain covered by synthetic fixtures only.
 
 ## The Gatekeeper
 
@@ -181,11 +190,16 @@ URL would not be a verified migration.
 - **Nine real read-only calls** passed through the implemented transport and
   decoders. The [sanitized report](research/live-verification.json) records the
   tools and time, with no account content.
+- **14 real actions across 11 write tools** passed through the production sessions,
+  protocol adapter, and executor inside workerd. The
+  [live write report](research/live-write-verification.json) records the checks,
+  fixture counts, and verified cleanup. [Sanitized response shapes](research/write-probe-shapes.json)
+  omit resource IDs, author identities, content values, and temporary URLs.
 - Type checking, the `cf build` production bundle, and local HTTP startup are
-  checked. Live write behavior, paid-plan permissions, provider revocation
-  semantics, the new self-serve MCP endpoint, browser UI inside Workshop, and
-  deployed host integration remain unverified. Source schemas and fixture tests
-  cannot establish those behaviors.
+  checked. Other write tools and editing variants, paid-plan permissions, provider
+  revocation semantics, the new self-serve MCP endpoint, browser UI inside Workshop,
+  and deployed host integration remain unverified. Source schemas and fixture
+  tests cannot establish those behaviors.
 
 ### Repeat discovery or live read verification
 
@@ -202,6 +216,30 @@ responses and credentials stay under ignored `.local/`, with credential files
 mode 0600. The live smoke test refreshes that local research token when needed and
 records only the pass/fail tool inventory. These files are separate from the
 Worker's connected-account storage.
+
+### Repeat the opt-in live write test
+
+This creates one folder, an imported design, and a design copy. Only run with the
+account owner's authorization. It uses a separate write-scoped research token:
+
+```sh
+node scripts/discover-canva.mjs --write
+# Complete Canva consent at http://127.0.0.1:8976/login.
+npm run test:live:write -- --execute
+```
+
+The test-only Worker is never imported by the production configuration. The local
+approval queue records submissions; the scenario explicitly applies each action.
+Private credentials, durable state, transcripts, fixture IDs, and preview URLs
+remain in ignored `.local/live-write/` and `.local/oauth-write-tokens.json`.
+
+If interrupted, inspect the private manifest and transcript before using
+`--execute --resume`. Never replay an ambiguous write. The runner refuses to start
+a duplicate run over an existing manifest, and refuses to resume cleaned-up
+fixtures. Archive that private manifest/state before a separately authorized new
+run. It does not automatically delete fixtures: Canva MCP has no delete tool.
+After testing, move only the exact test designs to Trash in Canva's UI, remove the
+empty test folder, and record cleanup in the private manifest. Do not empty Trash.
 
 ## Evidence and source layout
 

@@ -1,7 +1,9 @@
 # Canva Gatekeeper research and design constraints
 
 Status: authenticated discovery complete; API explicitly approved and Gatekeeper
-implemented. Unit tests, workerd scenarios, and nine live read calls passed. No
+implemented. Unit tests, workerd scenarios, nine live read calls, and 14 authorized
+live actions across 11 write tools passed. Disposable fixture cleanup was verified
+in Canva's UI; see `live-write-verification.json`. No
 deployment or end-to-end host run has been performed. The original research
 constraints below are retained; README records final behavior and limits.
 
