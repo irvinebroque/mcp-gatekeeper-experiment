@@ -1,14 +1,14 @@
 import { WorkerEntrypoint, DurableObject, RpcTarget, RpcStub } from "cloudflare:workers";
 import type { GatekeeperVendor as Vendor, GatekeeperUser, GatekeeperUserVerifier, Gatekeeper, GatekeeperConnectCallback, GatekeeperConnectOptions, ApprovalQueue, ResourceConfiguratorFrame, AccountDescription } from "../research/upstream/gatekeeper";
-import type { ToolClient, Data } from "./protocol";
 import { Engine, RESOURCES, parseResource, resourceFor, scopeUrl, type Scope } from "./core";
 import { createSession } from "./sessions";
 import { JsonStore } from "./storage";
-import { patterns, type Env } from "./oauth";
-import { htmlResponse, errorPageHtml } from "./connect-pages";
+import { object } from "./protocol";
+import { patterns } from "./grants";
+import { accessPrincipal, accessDenied } from "./access";
 import TYPES from "./types.txt?raw";
 import CONFIGURATOR from "./generated/configurator.txt?raw";
-export { UserAccount } from "./oauth";
+type Env = Cloudflare.Env;
 
 type UserProps = { userObjectId: string };
 type GatekeeperProps = UserProps & { scope: Scope };
@@ -16,19 +16,12 @@ const supported = RESOURCES.map(r => ({ ...r, grantable: true }));
 const avatar = { url: "https://www.canva.com/favicon.ico" };
 
 export default {
-  async fetch(request: Request, _env: Env, ctx: ExecutionContext): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    try { await accessPrincipal(ctx, env.ACCESS_AUDIENCE); }
+    catch { return accessDenied(); }
     const url = new URL(request.url);
     if (request.method !== "GET") return new Response("Method not allowed", { status: 405 });
     if (url.pathname === "/health") return Response.json({ service: "canva-gatekeeper", status: "ok" });
-    try {
-      const match = /^\/connect\/([a-f0-9]{64})\/([a-f0-9]{64})$/.exec(url.pathname);
-      if (match) return await ctx.exports.UserAccount.get(ctx.exports.UserAccount.idFromString(match[1])).authorize(match[2]);
-      if (url.pathname === "/callback") {
-        const state = /^([a-f0-9]{64})\.([a-f0-9]{64})$/.exec(url.searchParams.get("state") ?? "");
-        if (!state || url.searchParams.has("error")) throw new Error("Authorization cancelled or invalid");
-        return await ctx.exports.UserAccount.get(ctx.exports.UserAccount.idFromString(state[1])).finish(state[2], url.searchParams.get("code") ?? "");
-      }
-    } catch { return htmlResponse(errorPageHtml("Connection failed", "This connection link has expired or Canva authorization could not finish. Start the connection again."), 400); }
     return new Response("Not found", { status: 404 });
   },
 };
@@ -38,33 +31,35 @@ export class GatekeeperVendor extends WorkerEntrypoint<Env> implements Vendor {
   async getSupportedResources() { return supported; }
   async getTypeScriptTypes() { return TYPES; }
   async connectAccount(callback: Fetcher<GatekeeperConnectCallback>, options?: GatekeeperConnectOptions) {
-    const account = this.ctx.exports.UserAccount.get(this.ctx.exports.UserAccount.newUniqueId());
-    return account.start(callback, patterns(options?.resourceUrlPatterns));
+    const userObjectId = await this.env.CREDENTIALS.allocateAccount();
+    const account = await this.env.CREDENTIALS.getAccount(userObjectId);
+    return account.start(callback, patterns(options?.resourceUrlPatterns), this.ctx.exports.CanvaUser({ props: { userObjectId } }));
   }
 }
 
 export class CanvaUser extends WorkerEntrypoint<Env, UserProps> implements GatekeeperUser {
-  #account() { return this.ctx.exports.UserAccount.get(this.ctx.exports.UserAccount.idFromString(this.ctx.props.userObjectId)); }
-  async describe(): Promise<AccountDescription> { return { displayName: "Canva account", avatar, grantedResourceUrlPatterns: await this.#account().getPatterns() }; }
+  #account() { return this.env.CREDENTIALS.getAccount(this.ctx.props.userObjectId); }
+  async describe(): Promise<AccountDescription> { return { displayName: "Canva account", avatar, grantedResourceUrlPatterns: await (await this.#account()).getPatterns() }; }
   async getSupportedResources() { return supported; }
   async getGatekeeperClassFor(url: string): ReturnType<GatekeeperUser["getGatekeeperClassFor"]> {
     const scope = parseResource(url), resource = resourceFor(scope);
-    if (!(await this.#account().getPatterns()).includes(resource.urlPattern)) throw new Error("This resource type needs an account grant");
+    if (!(await (await this.#account()).getPatterns()).includes(resource.urlPattern)) throw new Error("This resource type needs an account grant");
     return { class: this.ctx.exports.CanvaGatekeeper({ props: { ...this.ctx.props, scope } }), resource };
   }
   async startResourceConfigurator(pattern: string): Promise<ResourceConfiguratorFrame> {
     patterns([pattern]);
     return { iframeHtml: CONFIGURATOR, ui: new RpcStub(new Configurator(pattern)) };
   }
-  async revoke() { await this.#account().revoke(); }
-  async reconnect() { return this.#account().begin(await this.#account().getPatterns()); }
-  async commitReconnect(stageId: string) { await this.#account().commitReconnect(stageId); }
+  async revoke() { await (await this.#account()).revoke(); }
+  async reconnect() { const account = await this.#account(); return account.begin(await account.getPatterns()); }
+  async commitReconnect(stageId: string) { await (await this.#account()).commitReconnect(stageId); }
   async getAuthenticatedEmail() { return null; }
   async getVerifier(): Promise<Fetcher<GatekeeperUserVerifier>> { return this.ctx.exports.CanvaVerifier({ props: this.ctx.props }); }
   async ensureResources(requested: string[]) {
-    const existing = await this.#account().getPatterns(), wanted = patterns(requested);
+    const account = await this.#account();
+    const existing = await account.getPatterns(), wanted = patterns(requested);
     if (wanted.every(p => existing.includes(p))) return {};
-    return this.#account().begin([...new Set([...existing, ...wanted])]);
+    return account.begin([...new Set([...existing, ...wanted])]);
   }
 }
 class Configurator extends RpcTarget {
@@ -84,9 +79,9 @@ export class CanvaGatekeeper extends DurableObject<Env, GatekeeperProps> impleme
   #engine?: Engine;
   #getEngine() {
     if (!this.#engine) {
-      const account = this.ctx.exports.UserAccount.get(this.ctx.exports.UserAccount.idFromString(this.ctx.props.userObjectId)) as unknown as { call(name: string, args: Data, pattern: string): ReturnType<ToolClient["call"]>; checkGrant(pattern: string): Promise<void> };
+      const account = () => this.env.CREDENTIALS.getAccount(this.ctx.props.userObjectId);
       const pattern = resourceFor(this.ctx.props.scope).urlPattern;
-      this.#engine = new Engine(new JsonStore(this.ctx.storage.kv), { call: (name, args) => account.call(name, args, pattern), ensureActive: () => account.checkGrant(pattern) }, this.ctx.props.scope);
+      this.#engine = new Engine(new JsonStore(this.ctx.storage.kv), { call: async (name, args) => object(JSON.parse(await (await account()).call(name, JSON.stringify(args), pattern))), ensureActive: async () => (await account()).checkGrant(pattern) }, this.ctx.props.scope);
     }
     return this.#engine;
   }

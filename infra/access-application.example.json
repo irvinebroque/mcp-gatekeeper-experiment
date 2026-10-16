@@ -1,0 +1,25 @@
+{
+  "type": "self_hosted",
+  "name": "Canva Gatekeeper and credential connection",
+  "destinations": [
+    { "type": "worker", "worker_id": "REPLACE_WITH_GATEKEEPER_WORKER_ID" },
+    { "type": "worker", "worker_id": "REPLACE_WITH_CREDENTIAL_WORKER_ID" }
+  ],
+  "policies": [
+    {
+      "name": "Authorized operators",
+      "decision": "allow",
+      "include": [{ "email": { "email": "REPLACE_WITH_ALLOWED_EMAIL" } }]
+    }
+  ],
+  "oauth_configuration": {
+    "enabled": true,
+    "dynamic_client_registration": {
+      "enabled": true,
+      "allow_any_on_localhost": false,
+      "allow_any_on_loopback": false,
+      "allowed_uris": []
+    },
+    "grant": { "access_token_lifetime": "5m", "session_duration": "24h" }
+  }
+}

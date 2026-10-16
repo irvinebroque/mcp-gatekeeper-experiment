@@ -1,12 +1,15 @@
 import { DurableObject } from "cloudflare:workers";
-import type { GatekeeperConnectCallback } from "../research/upstream/gatekeeper";
-import { McpClient, boundedText, object, string, type Data } from "./protocol";
-import { RESOURCES } from "./core";
-import { connectHandoffPageHtml, htmlResponse } from "./connect-pages";
+import type { GatekeeperConnectCallback, GatekeeperUser } from "../research/upstream/gatekeeper";
+import { McpClient, boundedText, object, string, type Data } from "../src/protocol";
+import { RESOURCES } from "../src/core";
+import { patterns } from "../src/grants";
+import { connectHandoffPageHtml, htmlResponse } from "../src/connect-pages";
+import { samePrincipal, type AccessPrincipal } from "../src/access";
+import type { CredentialEnv } from "./index";
 
-export type Env = Cloudflare.Env;
+export type Env = CredentialEnv;
 export type Credentials = { access_token: string; refresh_token?: string; expires_at: number; scope: string };
-type Flow = { nonce: string; expires: number; patterns: string[]; reconnect: boolean; state?: string; verifier?: string };
+type Flow = { nonce: string; expires: number; patterns: string[]; reconnect: boolean; state?: string; verifier?: string; principal?: AccessPrincipal };
 const LIFETIME = 10 * 60_000;
 const ISSUER = "https://mcp.canva.com";
 const RESOURCE = ISSUER + "/mcp";
@@ -28,11 +31,6 @@ export function baseUrl(env: Env) {
   if (u.search || u.hash || u.pathname !== "/" || u.username || u.password) throw new Error("BASE_URL must be an origin");
   return u.origin;
 }
-export function patterns(value?: string[]): string[] {
-  const p = value === undefined ? RESOURCES.map(r => r.urlPattern) : value;
-  if (!Array.isArray(p) || p.some(x => !RESOURCES.some(r => r.urlPattern === x))) throw new Error("Unknown resource grant");
-  return [...new Set(p)];
-}
 export function decodeCredentials(data: Data, previous?: Credentials): Credentials {
   const expires = Number(data.expires_in);
   if (!Number.isFinite(expires) || expires <= 0 || data.token_type?.toLowerCase() !== "bearer") throw new Error("Invalid Canva token response");
@@ -43,9 +41,10 @@ export function decodeCredentials(data: Data, previous?: Credentials): Credentia
 export class UserAccount extends DurableObject<Env> {
   #refresh?: Promise<string>;
   #client = new McpClient(() => this.getAccessToken());
-  async start(callback: Fetcher<GatekeeperConnectCallback>, allowed: string[]): Promise<{ url: string }> {
+  async start(callback: Fetcher<GatekeeperConnectCallback>, allowed: string[], user: Fetcher<GatekeeperUser>): Promise<{ url: string }> {
     if (this.ctx.storage.kv.get("callback")) throw new Error("Account already initialized");
     this.ctx.storage.kv.put("callback", callback);
+    this.ctx.storage.kv.put("user", user);
     return this.begin(allowed, false);
   }
   async begin(allowed: string[], reconnect = true): Promise<{ url: string }> {
@@ -56,12 +55,14 @@ export class UserAccount extends DurableObject<Env> {
     await this.ctx.storage.setAlarm(flow.expires);
     return { url: `${baseUrl(this.env)}/connect/${this.ctx.id}/${value}` };
   }
-  async authorize(value: string): Promise<Response> {
+  async authorize(value: string, principal: AccessPrincipal): Promise<Response> {
     const flow = this.ctx.storage.kv.get<Flow>("flow");
     if (!flow || flow.expires <= Date.now() || !same(flow.nonce, value) || flow.state) throw new Error("Invalid or expired connection link");
+    const owner = this.ctx.storage.kv.get<AccessPrincipal>("owner");
+    if (owner && !samePrincipal(owner, principal)) throw new Error("Connection belongs to another Access user");
     if (!this.env.CANVA_CLIENT_ID) throw new Error("Configure a Canva OAuth client before connecting");
     const verifier = nonce(), state = nonce();
-    this.ctx.storage.kv.put("flow", { ...flow, nonce: "", verifier, state });
+    this.ctx.storage.kv.put("flow", { ...flow, nonce: "", verifier, state, principal });
     const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier));
     const challenge = btoa(String.fromCharCode(...new Uint8Array(digest))).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
     const url = new URL(ISSUER + "/authorize");
@@ -78,9 +79,10 @@ export class UserAccount extends DurableObject<Env> {
     if (!response.ok) { await response.body?.cancel(); throw new Error(`Canva authorization failed (${response.status})`); }
     return decodeCredentials(object(JSON.parse(await boundedText(response, 64 * 1024))), previous);
   }
-  async finish(state: string, code: string): Promise<Response> {
+  async finish(state: string, code: string, principal: AccessPrincipal): Promise<Response> {
     const flow = this.ctx.storage.kv.get<Flow>("flow");
     if (!flow?.state || flow.expires <= Date.now() || !same(flow.state, state) || !flow.verifier || !code) throw new Error("Invalid or expired OAuth callback");
+    if (!flow.principal || !samePrincipal(flow.principal, principal)) throw new Error("Access user changed during authorization");
     const revision = this.ctx.storage.kv.get<number>("revision") ?? 0;
     this.ctx.storage.kv.delete("flow"); // One use, including failed exchanges.
     const credentials = await this.#token({ grant_type: "authorization_code", code, code_verifier: flow.verifier, redirect_uri: `${baseUrl(this.env)}/callback` });
@@ -95,8 +97,10 @@ export class UserAccount extends DurableObject<Env> {
     }
     this.ctx.storage.kv.put("credentials", credentials);
     this.ctx.storage.kv.put("patterns", flow.patterns);
+    this.ctx.storage.kv.put("owner", principal);
     try {
-      const user = this.ctx.exports.CanvaUser({ props: { userObjectId: this.ctx.id.toString() } });
+      const user = this.ctx.storage.kv.get<Fetcher<GatekeeperUser>>("user");
+      if (!user) throw new Error("Connection expired");
       return htmlResponse(connectHandoffPageHtml(await callback.complete(user)));
     } catch (error) { this.ctx.storage.kv.delete("credentials"); throw error; }
   }
@@ -145,9 +149,11 @@ export class UserAccount extends DurableObject<Env> {
     })();
     return this.#refresh;
   }
-  async call(tool: string, args: Data, pattern: string): Promise<Data> {
+  async call(tool: string, argsJson: string, pattern: string): Promise<string> {
     await this.checkGrant(pattern);
-    try { return await this.#client.call(tool, args); }
+    if (typeof argsJson !== "string" || argsJson.length > 200_000) throw new Error("Invalid tool arguments");
+    const args = object(JSON.parse(argsJson));
+    try { return JSON.stringify(await this.#client.call(tool, args)); }
     catch (e) { if (e instanceof Error && e.message.includes("HTTP 401")) await this.#expired(); throw e; }
   }
   async revoke(): Promise<void> {

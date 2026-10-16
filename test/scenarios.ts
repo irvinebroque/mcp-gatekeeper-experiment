@@ -72,13 +72,14 @@ let checks = 0;
   assert.deepEqual(missing, []); checks++;
 
   const oauth = await worker.oauth();
+  const principal = { audience: "test-audience", userId: "test-user" };
   const link = await oauth.begin([]);
   const nonce = new URL(link.url).pathname.split("/").at(-1);
-  const redirect = await oauth.authorize(nonce);
+  const redirect = await oauth.authorize(nonce, principal);
   const authorization = new URL(redirect.headers.get("location"));
   assert.equal(authorization.searchParams.get("scope"), "profile:read");
   assert.equal(authorization.searchParams.get("code_challenge_method"), "S256");
-  await assert.rejects(async () => oauth.authorize(nonce), /Invalid/); checks++;
+  await assert.rejects(async () => oauth.authorize(nonce, principal), /Invalid/); checks++;
   await oauth.seed({ credentials: { access_token: "old-test-token", refresh_token: "old-refresh", expires_at: 0, scope: "profile:read" }, patterns: [] });
   assert.deepEqual(await oauth.getPatterns(), []);
   assert.deepEqual(await Promise.all([oauth.getAccessToken(), oauth.getAccessToken()]), ["new-test-token-1", "new-test-token-1"]);

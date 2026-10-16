@@ -3,7 +3,7 @@ import { DurableObject, WorkerEntrypoint, RpcTarget, RpcStub } from "cloudflare:
 import { Engine, type Scope } from "../src/core";
 import { createSession } from "../src/sessions";
 import { validate, type Data } from "../src/protocol";
-import { UserAccount } from "../src/oauth";
+import { UserAccount } from "../auth/account";
 import { JsonStore } from "../src/storage";
 import { runScenarios } from "./scenarios";
 export { CanvaUser, CanvaVerifier, CanvaGatekeeper, GatekeeperVendor } from "../src/index";

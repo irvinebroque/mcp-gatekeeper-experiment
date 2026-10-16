@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "types": ["node"] },
+  "include": ["auth/**/*.ts", "test/access*.ts", "src/raw.d.ts", ".cloudflare/types/index.d.ts"],
+  "exclude": ["auth/node_modules"]
+}

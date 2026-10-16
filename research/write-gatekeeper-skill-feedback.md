@@ -5,6 +5,9 @@ This is a retrospective from building and testing the Canva Gatekeeper, written
 pinned to [Cloudflare OS commit fccd425](https://github.com/cloudflare/cloudflare-os/blob/fccd425a2c8d357130ceb3e3041bbe240e3f1108/.agents/skills/write-gatekeeper/SKILL.md),
 rather than assuming the current upstream version is identical.
 
+This records the original build before the subsequent
+[Access investigation and credential Worker split](cloudflare-access-managed-oauth.md).
+
 My main recommendation is to replace the two-phase structure with a secure
 vertical slice: one resource, one observation, and one queued action, with the
 security rules working before adding more methods. The skill is strong on the
@@ -144,7 +147,7 @@ We have not established that Access can replace this code. Authentication to a
 Worker and delegated authorization to Canva are separate requirements; any managed
 OAuth proposal must explain which of those it handles.
 
-Evidence: [OAuth implementation](../src/oauth.ts),
+Evidence: [original OAuth implementation](https://github.com/irvinebroque/mcp-gatekeeper-experiment/blob/79a440c3bc38e0689fccdcacdfa04ab8187e7b40/src/oauth.ts),
 [connection handoff](../src/connect-pages.ts).
 
 ## 6. Submitting an action is only the beginning of durable execution

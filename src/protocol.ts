@@ -78,7 +78,7 @@ export class McpClient implements ToolClient {
   #session?: string;
   #ready?: Promise<void>;
   #id = 0;
-  constructor(private readonly token: () => Promise<string>, private readonly endpoint = "https://mcp.canva.com/mcp", private readonly request: typeof fetch = fetch) {}
+  constructor(private readonly token: () => Promise<string>, private readonly endpoint = "https://mcp.canva.com/mcp", private readonly request: typeof fetch = (input, init) => fetch(input, init)) {}
   async #send(method: string, params: Data, notify = false): Promise<Data> {
     const id = ++this.#id;
     const headers: Record<string, string> = {

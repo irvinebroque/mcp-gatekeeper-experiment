@@ -8,7 +8,9 @@ follow-up instructions; it does not mean one model response or zero human input.
 The result is an implemented Cloudflare Worker targeting the Cloudflare OS
 Gatekeeper contracts. It turns Canva's authenticated MCP tools into scoped
 TypeScript capabilities, with observations and actions mediated by the host's
-approval queue. The implementation and local tests are complete. It has not been
+approval queue. Cloudflare Access protects public HTTP entrypoints, while a
+separate credential Worker owns Canva authorization. The implementation and local
+tests are complete. It has not been
 deployed or tested inside a running Cloudflare OS installation.
 
 ## Original prompt
@@ -53,7 +55,7 @@ deployed or tested inside a running Cloudflare OS installation.
 7. A follow-up requested a branch investigating Cloudflare Access and managed
    OAuth, then a PR to `main`. The operator immediately said **“WAIT — before you
    take that step i want you to keep going on the original goal”**. That follow-up
-   is deferred; this initial implementation retains its account OAuth code.
+   was initially deferred; the original implementation retained its account OAuth code.
 8. After publication, the operator explicitly allowed writes to the Canva account
    for testing. The agent obtained write scopes, imported a public one-page test
    PDF, copied it, and ran 14 approved actions covering 11 write tools. It verified
@@ -62,6 +64,12 @@ deployed or tested inside a running Cloudflare OS installation.
    the empty test folder was removed. A Miniflare test harness issue with nested
    RPC returns was resolved by running the scenario controller inside workerd;
    no production adapter changes were needed for these write paths.
+9. The operator resumed the Access investigation and requested a branch and PR.
+   Research found that managed OAuth authenticates clients to our application;
+   Canva delegation remains a separate requirement. The agent moved that flow to
+   a credential Worker, used native `ctx.access` for public HTTP requests, and
+   tested the two-Worker connection and resource path with simulated identities.
+   See the [research and setup guide](research/cloudflare-access-managed-oauth.md).
 
 The initial pass used read-only live probes and synthetic write fixtures. The
 subsequent authorized live write pass touched only newly created test content.
@@ -104,7 +112,8 @@ fail closed.
   unavailable. Rejected actions invalidate dependent work.
 - Observer attachment is denied for all grants. Equivalent access to all content,
   comments, and exports has not been proven under a collaborator's own token.
-- OAuth tokens stay in a per-account Durable Object. Connection links and state
+- OAuth tokens stay in the credential Worker's per-account Durable Object.
+  Connection links and state
   are one-use and expiring; reconnects stage credentials until the host commits
   the exact stage; refreshes are serialized; revocation retains a local tombstone.
 
@@ -114,18 +123,25 @@ Requires Node.js **22.18+**. The lockfile pins the tested dependency versions.
 
 ```sh
 npm ci
+npm ci --prefix auth
 npm run generate
 npm run typecheck
 npm test
 npm run test:runtime
+npm run test:access
 npm run build
-npm run dev
+# Run these in separate terminals; access-dev simulates a local user:
+npm run dev:auth -- --mode access-dev
+npm run dev -- --mode access-dev
 ```
 
 `generate` builds the pinned schema validators, embeds the resource selector, and
 generates Workers types with `cf`. Build and dev run it automatically. No Cloudflare
 account or Canva credentials are needed for the unit/runtime tests or local build.
-`GET http://localhost:8787/health` checks the HTTP entrypoint. The resource API is
+`build` builds both Workers with `cf`. HTTP requests require native Access context
+and the configured audience; no context means 403. In local `access-dev` mode,
+`GET http://localhost:8787/health` and `GET http://localhost:8788/health` check the
+Gatekeeper and credential Worker. The resource API is
 Workers RPC, not a public HTTP tool endpoint.
 
 ### Connect it to Cloudflare OS
@@ -154,11 +170,18 @@ modify the Cloudflare OS monorepo.
 
 ### Canva OAuth configuration
 
+Follow the [Access and managed OAuth setup](research/cloudflare-access-managed-oauth.md#configure-and-verify)
+and review the [Access application example](infra/access-application.example.json).
+The code does not itself provision an Access policy. Access managed OAuth handles
+authentication to our applications; it does not supply a Canva token. The
+Gatekeeper has only a private service binding to `canva-credentials`.
+
 The implementation deliberately targets the **researched legacy endpoint**
 `https://mcp.canva.com/mcp` and its advertised authorization server. Configure an
 approved client for that endpoint with callback `<BASE_URL>/callback`. Set the
-`BASE_URL` binding in [cloudflare.config.ts](cloudflare.config.ts) to the Worker's
-public HTTPS origin before deployment. For local testing, use ignored `.dev.vars`:
+`BASE_URL` binding in [auth/cloudflare.config.ts](auth/cloudflare.config.ts) to the
+credential Worker's public HTTPS origin before deployment. For local testing, use
+ignored `auth/.dev.vars`:
 
 ```dotenv
 CANVA_CLIENT_ID=your-client-id
@@ -167,7 +190,8 @@ CANVA_CLIENT_SECRET=your-client-secret
 
 A registered public PKCE client uses an empty client secret. The Worker does not
 dynamically register production clients or import the research account's tokens.
-Manage deployed secrets through `cf` and discover the current commands with
+Manage deployed secrets on `canva-credentials` through `cf` and discover the current
+commands with
 `cf cli search "Worker secrets"`. See the
 [Cloudflare CLI setup](https://developers.cloudflare.com/cf/get-started/).
 
@@ -180,13 +204,18 @@ URL would not be a verified migration.
 
 ## Verification and limits
 
-- **17 unit tests** cover journal behavior, concurrency, ambiguous outcomes,
+- **18 unit tests** cover native Access identity checks, journal behavior,
+  concurrency, ambiguous outcomes,
   membership changes, cache authorization, response parsing, and chunked storage.
 - **45 workerd runtime checks** exercise all 41 mapped tools with synthetic
   fixtures, real Workers RPC objects, SQLite Durable Objects, and mocked Canva
   responses. They include missing-method attacks, scoped child capabilities,
   draft simulation, OAuth refresh, one-use connect links, staged reconnects, and
   revocation after a cleanup alarm.
+- **17 Access integration checks** run separate Gatekeeper and credential Workers
+  with persisted stubs and a real DO facet. Access identity and Canva responses are
+  simulated. They cover user-bound callbacks, reconnects, observation denial,
+  approval-before-write, revocation, and the absence of OAuth from the Gatekeeper bundle.
 - **Nine real read-only calls** passed through the implemented transport and
   decoders. The [sanitized report](research/live-verification.json) records the
   tools and time, with no account content.
@@ -197,7 +226,8 @@ URL would not be a verified migration.
   omit resource IDs, author identities, content values, and temporary URLs.
 - Type checking, the `cf build` production bundle, and local HTTP startup are
   checked. Other write tools and editing variants, paid-plan permissions, provider
-  revocation semantics, the new self-serve MCP endpoint, browser UI inside Workshop,
+  revocation semantics, real Access login/managed OAuth, the split deployment,
+  the new self-serve MCP endpoint, browser UI inside Workshop,
   and deployed host integration remain unverified. Source schemas and fixture
   tests cannot establish those behaviors.
 
@@ -244,11 +274,12 @@ empty test folder, and record cleanup in the private manifest. Do not empty Tras
 ## Evidence and source layout
 
 - [Retrospective feedback on the write-gatekeeper skill](research/write-gatekeeper-skill-feedback.md).
+- [Access and managed OAuth research](research/cloudflare-access-managed-oauth.md).
 - [API decisions](research/api-proposal.md) and [design constraints](research/design-notes.md).
 - [Authenticated catalog](research/tools.json), [tool mapping](research/tool-map.md),
   and [sanitized probe shapes](research/probe-shapes.json).
 - [Protocol adapter](src/protocol.ts), [policy/journal engine](src/core.ts),
-  [resource capabilities](src/sessions.ts), [OAuth account](src/oauth.ts), and
+  [resource capabilities](src/sessions.ts), [credential Worker](auth/index.ts), [OAuth account](auth/account.ts), and
   [Worker entrypoints](src/index.ts).
 - [Pinned upstream hashes](research/upstream-sha256.json) and [third-party notices](NOTICE).
 

@@ -7,12 +7,15 @@
   "scripts": {
     "generate": "node scripts/generate-validators.mjs && node scripts/build-configurator.mjs && cf workers types --include-runtime",
     "prebuild": "npm run generate",
-    "build": "cf build",
+    "build": "cf build && npm run build:auth",
+    "build:auth": "cd auth && cf build",
     "predev": "npm run generate",
     "dev": "cf dev",
-    "typecheck": "cf workers types --include-runtime && tsc --noEmit && tsc --project tsconfig.browser.json && tsc --project tsconfig.live.json",
+    "dev:auth": "cd auth && cf dev",
+    "typecheck": "cf workers types --include-runtime && tsc --noEmit && tsc --project tsconfig.browser.json && tsc --project tsconfig.live.json && tsc --project tsconfig.access.json",
     "test": "tsx --test test/*.test.ts",
     "test:runtime": "tsx test/runtime.ts",
+    "test:access": "tsx test/access-runtime.ts",
     "test:live": "tsx scripts/live-smoke.ts",
     "test:live:write": "tsx scripts/live-write-smoke.ts"
   },
