@@ -1,0 +1,10 @@
+node_modules/
+.local/
+.env*
+.cloudflare/
+.wrangler/
+dist/
+.dev.vars*
+research/upstream/*.html
+research/upstream/get-design-content.txt
+research/upstream/list-folder-items.txt

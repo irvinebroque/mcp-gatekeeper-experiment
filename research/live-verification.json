@@ -1,0 +1,19 @@
+{
+  "verifiedAt": "2026-10-16T20:31:34.024Z",
+  "endpoint": "https://mcp.canva.com/mcp",
+  "implementation": "src/protocol.ts and src/decode.ts",
+  "mode": "read-only",
+  "passedTools": [
+    "search-designs",
+    "search-folders",
+    "list-folder-items",
+    "get-design",
+    "get-design-pages",
+    "get-design-content",
+    "get-export-formats",
+    "list-comments",
+    "get-design-dataset"
+  ],
+  "mutationsPerformed": 0,
+  "accountContentRecorded": false
+}

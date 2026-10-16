@@ -1,0 +1,15 @@
+{
+  "retrievedAt": "2026-10-16",
+  "cloudflareOsHead": "fccd425a2c8d357130ceb3e3041bbe240e3f1108",
+  "capnwebHead": "766655329fe4fe2dada67c8b4e82e3a81e38b194",
+  "sha256": {
+    "research/upstream/LICENSE-ajv-formats.txt": "9df3bb69929a3b650ed73b3bfa1756725aaff0ac296461605753547004eafeaf",
+    "research/upstream/LICENSE-ajv.txt": "9b6a90e9be78799534e4030d71b6817271fb99aa10e261f9f9f6dec1cff4177a",
+    "research/upstream/LICENSE-capnweb.txt": "5514f48637fa1d8fed2256d12d322009a75962e6111370755fc5b20773db67ad",
+    "research/upstream/capnweb-README.md": "a9d8f4529254df855931d56557de0d639f92630ba655d56b06f07f9cb290df1a",
+    "research/upstream/capnweb-rpc-target.mdx": "0e5a62ff62069f699d3b08150ca9e084cb1b7203e0c8ecbc61a37109ac78ca34",
+    "research/upstream/capnweb-values.mdx": "6212cd754435ad8ac9d31ca647bb86e67c237812b357ad32322ea1a03db9e46b",
+    "research/upstream/gatekeeper.ts": "6c87d65bb8ff3450c6e0f0529754f8e7a31dd0e996ad0e67fe314cc1f95b47aa",
+    "research/upstream/write-gatekeeper-SKILL.md": "7287af8d6338c6b95e18c6d9d2630d3c077e900882e4163551f281e5a08e9f51"
+  }
+}

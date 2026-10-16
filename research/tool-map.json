@@ -1,0 +1,614 @@
+{
+  "discoveredAt": "2026-10-16T20:07:11.527Z",
+  "endpoint": "https://mcp.canva.com/mcp",
+  "total": 48,
+  "classifications": {
+    "observation": 20,
+    "action": 21,
+    "excluded": 7,
+    "unreviewed": 0
+  },
+  "outputSchemas": 8,
+  "liveOnly": [
+    "get-design-candidates",
+    "get-design-thumbnails",
+    "track-event-lifecycle"
+  ],
+  "documentedButAbsent": [
+    "autofill-design"
+  ],
+  "tools": [
+    {
+      "name": "create-folder",
+      "classification": "action",
+      "method": "CanvaFolderSession.createFolder",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "6a588307f24fb90b2016fb20780bb07b7788231a7516b8c2e8a56513f01f9714"
+    },
+    {
+      "name": "list-folder-items",
+      "classification": "observation",
+      "method": "CanvaFolderSession.listItems",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "b347ac715a5018531ef510c0abb79c5fcf39794733d4fb18447a0cd21be4a182"
+    },
+    {
+      "name": "move-item-to-folder",
+      "classification": "action",
+      "method": "CanvaLibrarySession.moveItem / CanvaFolderSession.moveItem",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "6060e1c233c30793ee0a0bf1d9e9972eda72606163a63226f8347a7a3dd4b817"
+    },
+    {
+      "name": "search-folders",
+      "classification": "observation",
+      "method": "CanvaLibrarySession.searchFolders",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "070945fa552b08a18c17b57e9634b815329647a69ea01a595a1c03a2ebe3ceb8"
+    },
+    {
+      "name": "export-design",
+      "classification": "action",
+      "method": "CanvaDesignEditor.export",
+      "note": "Conservative: creates an export job/temporary download; upstream labels read-only.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "43102d4642db4feb010a3014f27062f8b9dbd7ebedfdfb95ae4c3c7f800d9c88"
+    },
+    {
+      "name": "get-export-formats",
+      "classification": "observation",
+      "method": "CanvaDesignReader.getExportFormats",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "a9e71018c18273ae1b8580682754005b9e9d0132e2876a11bf1afa6c68191b20"
+    },
+    {
+      "name": "comment-on-design",
+      "classification": "action",
+      "method": "CanvaDesignEditor.addComment",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "d5c1a0dd49aae6440a967b82084b34cb80a40bf3816f0c7807215ec0e590ae68"
+    },
+    {
+      "name": "list-comments",
+      "classification": "observation",
+      "method": "CanvaDesignReader.listComments / CanvaCommentSession.getInfo",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "42249ad3a4281a06ffda9700f2971e74632f9d565fd2d8eea0904b1611d37a37"
+    },
+    {
+      "name": "list-replies",
+      "classification": "observation",
+      "method": "CanvaCommentSession.listReplies",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "0894eee1771270cf75e7c6255e77056530d0ba657cde54984d357b622898eac4"
+    },
+    {
+      "name": "reply-to-comment",
+      "classification": "action",
+      "method": "CanvaCommentSession.reply",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "cf254aaa479542e2d05eb4cbc4bdc1a4d44928879fd135601f61e6986d668558"
+    },
+    {
+      "name": "get-design",
+      "classification": "observation",
+      "method": "CanvaDesignReader.getInfo",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "442e72b5c106fd10f89a07bc828f080181616d782e1f708dfdfc413d351ee99f"
+    },
+    {
+      "name": "get-design-pages",
+      "classification": "observation",
+      "method": "CanvaDesignReader.listPages",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "fc42f6cda843385288337098571aa1f27bfe59a672afd2f6f058df04c5a0d789"
+    },
+    {
+      "name": "get-design-content",
+      "classification": "observation",
+      "method": "CanvaDesignReader.getText",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "446833fcf5615d6196c5d0caf5feb6565f3ad5d20f530f0038055900dc336f58"
+    },
+    {
+      "name": "get-presenter-notes",
+      "classification": "observation",
+      "method": "CanvaDesignReader.getPresenterNotes",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "9e94e42598e1cd6f9efa935c481c86bb0cc5e564d392b0d68bd0eac4c35aef7b"
+    },
+    {
+      "name": "search-designs",
+      "classification": "observation",
+      "method": "CanvaLibrarySession.searchDesigns",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "a68313cea9d4e9def796625d57689f34ca00ca8e95b0b00a98c53770d453cceb"
+    },
+    {
+      "name": "import-design-from-url",
+      "classification": "action",
+      "method": "CanvaLibrarySession.importDesign",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "14ae3925fb30deb49e92015e0c6198c6847d89c3a7db44b99c600187a4cf9a09"
+    },
+    {
+      "name": "copy-design",
+      "classification": "action",
+      "method": "CanvaDesignSession.copy",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "baa981567d4a6a2d3dc84d1d71123411fdcd98002ae1ae53e2655982a1daf5d7"
+    },
+    {
+      "name": "create-design-from-brand-template",
+      "classification": "action",
+      "method": "CanvaBrandTemplateSession.createDesign",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "14db34d94627974ce7644ea36d27a55a2ee628997d2c672157f13819eae5b347"
+    },
+    {
+      "name": "create-design-from-candidate",
+      "classification": "excluded",
+      "method": null,
+      "note": "Legacy flow; newer create-design is present. Brand-specific legacy generation is deferred.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "53e1c75af863e021f7804973631674e662733a662146871f8a7b582452759071"
+    },
+    {
+      "name": "upload-asset-from-url",
+      "classification": "action",
+      "method": "CanvaLibrarySession.uploadAsset",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "04447c6e72fa9f4faf643743780a790693b1af5b96e73ae630420f30056a07fe"
+    },
+    {
+      "name": "resize-design",
+      "classification": "action",
+      "method": "CanvaDesignSession.resize",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "b4a9270d2a451a07cdc1dab4e29dcf80df64c918a6aa1a214717058300bb93d7"
+    },
+    {
+      "name": "merge-designs",
+      "classification": "action",
+      "method": "CanvaDesignEditor.changePages / CanvaLibrarySession.combineDesigns",
+      "note": "Cross-design sources are accepted only by the library capability.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "f602c62b30eba7bd4076e88f9071cb923fadf2b53bbd183d556b83d888fdbd88"
+    },
+    {
+      "name": "start-editing-transaction",
+      "classification": "action",
+      "method": "CanvaDesignEditor.beginEdit",
+      "note": "Opens upstream draft state; never run as an unaudited read to obtain elements.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "ba79cbd238ae434ab8b4956b84e1d3eb60fc623b26a50391c030cdb0be0f5144"
+    },
+    {
+      "name": "perform-editing-operations",
+      "classification": "action",
+      "method": "CanvaEditingSession.apply",
+      "note": "Eight of ten operation variants proposed; media insert/fill updates deferred pending scoped asset transfer design.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "95642590b52392bdd233f02e1f86a65611a3214a2f5bdfa7ff422f33fc22c87a"
+    },
+    {
+      "name": "commit-editing-transaction",
+      "classification": "action",
+      "method": "CanvaEditingSession.commit",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "861246f9d688ce9e6a48845fcf7f859300825ad5ce9428fc249995c3a7094442"
+    },
+    {
+      "name": "cancel-editing-transaction",
+      "classification": "action",
+      "method": "CanvaEditingSession.cancel",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "61a4fc900e3b283e5554441e753ba64f3cd6f2e9d9e004153404d373459d37ef"
+    },
+    {
+      "name": "get-design-thumbnail",
+      "classification": "observation",
+      "method": "CanvaEditingSession.getPreview",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "9994a295fa4569e80a4024820aa48a609039d5d65cb00635c63116a2db65885d"
+    },
+    {
+      "name": "search-brand-templates",
+      "classification": "observation",
+      "method": "CanvaLibrarySession.searchBrandTemplates",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "0080eee7b352e9684644666d6d727263264d2f2631aff34dc090b12676e439f5"
+    },
+    {
+      "name": "get-brand-template-dataset",
+      "classification": "observation",
+      "method": "CanvaBrandTemplateSession.getDataset",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "3157cbf737a84778cbce7f32869cc6aed7114520415d85a5f821040f934ed517"
+    },
+    {
+      "name": "resolve-shortlink",
+      "classification": "observation",
+      "method": "CanvaLibrarySession.openDesign / resource configurator",
+      "note": "Resolve only Canva links, retain share tokens privately, then enforce the resulting design boundary.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "e58e3a0cd8cbfc5198d6d7b9f05908de15c948a38a7c4c41d5c055993ce925a7"
+    },
+    {
+      "name": "get-assets",
+      "classification": "observation",
+      "method": "CanvaAssetReader.getInfo",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "23f3c83a98562402055f1ef88cfd43eef833043c16784c3d009606bff40313df"
+    },
+    {
+      "name": "list-brand-kits",
+      "classification": "observation",
+      "method": "CanvaLibrarySession.listBrandKits",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "fdc541af55cb49adb4cf572af74a44dbba559d48d48ca97bfc33cd34a5370997"
+    },
+    {
+      "name": "get-design-candidates",
+      "classification": "excluded",
+      "method": null,
+      "note": "Legacy generation polling.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "13e104fddc4ee6fb8f732732580d0adbf2b194b7bc978ce19bb29743a7601764"
+    },
+    {
+      "name": "generate-design",
+      "classification": "excluded",
+      "method": null,
+      "note": "Legacy generation. Read-only hint is not proof of no side effects or credit use.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "9808259ef20f8e3111c236a046b3f35526c27499159866868e656a36af56a93a"
+    },
+    {
+      "name": "create-upload-url",
+      "classification": "excluded",
+      "method": null,
+      "note": "Returning a raw upload capability would allow uploads outside the action executor; a mediated upload API is future work.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": true,
+      "schemaHash": "079d2a3181dfbebc3cd3d2d75f609c815f86fee6ba4e51027f618f054198b816"
+    },
+    {
+      "name": "get-design-dataset",
+      "classification": "observation",
+      "method": "CanvaDesignReader.getDataset",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "164bf0fec4644eb632c9f1b794d42d73a2bbc4292ce56463e512740e14326cbd"
+    },
+    {
+      "name": "publish-brand-template",
+      "classification": "action",
+      "method": "CanvaDesignSession.publishBrandTemplate",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "72236835baf4e5beda6cc08c9216521873ed0594b0130525f613887140455904"
+    },
+    {
+      "name": "create-brand-template-draft",
+      "classification": "action",
+      "method": "CanvaBrandTemplateSession.openDraft",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "30ccb594e647f95ecfc723db09635ca88f20172ae515e6e3dd1201b019f01f8c"
+    },
+    {
+      "name": "help",
+      "classification": "excluded",
+      "method": null,
+      "note": "Product support is outside the proposed resource API.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "ce2622f337efc76aa64a1dcd4718d640cff59feb0675a566728ebda39a9e85ba"
+    },
+    {
+      "name": "generate-image",
+      "classification": "action",
+      "method": "CanvaLibrarySession.generateImage",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      },
+      "hasOutputSchema": true,
+      "schemaHash": "b15d853985152baa9fee977ab4947957487127415bbb119f1ab270ee01738f58"
+    },
+    {
+      "name": "get-generate-image-job",
+      "classification": "observation",
+      "method": "Job<CanvaAssetSession[]>.getStatus",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": true,
+      "schemaHash": "fbadd59c14ad03fb71a4256dd8744f20bce529d69ca8f152cd6a6ce34c856ed8"
+    },
+    {
+      "name": "remove-background",
+      "classification": "action",
+      "method": "CanvaAssetSession.removeBackground",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": true,
+      "schemaHash": "8e3b387c07c2317fe2d6e69df641c2fd8a3d62cc3bd1e152c4d78f20ae0cab8b"
+    },
+    {
+      "name": "create-design",
+      "classification": "action",
+      "method": "CanvaLibrarySession.createDesign",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "hasOutputSchema": true,
+      "schemaHash": "8162685aa5213fccbade550fc1dddb6567acecc8c400878ef9130169180d7e9e"
+    },
+    {
+      "name": "get-create-design-async-job",
+      "classification": "observation",
+      "method": "Job<CanvaDesignSession>.getStatus",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": true,
+      "schemaHash": "a6381877c7f858ffd67b38200cf18494deabcb6cb0931210090205cf584bb6f6"
+    },
+    {
+      "name": "separate-image-layers",
+      "classification": "action",
+      "method": "CanvaAssetSession.separateLayers",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "hasOutputSchema": true,
+      "schemaHash": "d932dfd2cfcf6f02911667503ec78b09f9cf649a0c9b495cccbd6ecc7d732a44"
+    },
+    {
+      "name": "get-separate-image-layers-job",
+      "classification": "observation",
+      "method": "Job<CanvaDesignSession>.getStatus",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": true,
+      "schemaHash": "02e0951249dbc30b48c08b02739b0bf296e0565d31471831d6c39841d47d5dd9"
+    },
+    {
+      "name": "get-design-thumbnails",
+      "classification": "excluded",
+      "method": null,
+      "note": "Explicitly internal widget tool; public page thumbnails cover the proposed API.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "79f77fc0941e6e918ed6ebecc69ab8deae3049467f9551d2b2626f65f6963496"
+    },
+    {
+      "name": "track-event-lifecycle",
+      "classification": "excluded",
+      "method": null,
+      "note": "Internal widget telemetry writes; no resource capability needed.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "hasOutputSchema": false,
+      "schemaHash": "826398f494d7af9fc539062296416892e00b64db849ec68fbe6bdbc6acac530c"
+    }
+  ]
+}
