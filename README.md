@@ -243,6 +243,7 @@ empty test folder, and record cleanup in the private manifest. Do not empty Tras
 
 ## Evidence and source layout
 
+- [Retrospective feedback on the write-gatekeeper skill](research/write-gatekeeper-skill-feedback.md).
 - [API decisions](research/api-proposal.md) and [design constraints](research/design-notes.md).
 - [Authenticated catalog](research/tools.json), [tool mapping](research/tool-map.md),
   and [sanitized probe shapes](research/probe-shapes.json).
